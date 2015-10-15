@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.view.inputmethod.InputMethodManager;
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -57,11 +58,7 @@ public class MainActivity extends Activity
                  objFragment = new tictactoe_Fragment();
                  break;
         }
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, objFragment)
-                .commit();
+        switchFragment(objFragment);
     }
     public void onSectionAttached(int number) {
         switch (number) {
@@ -113,6 +110,18 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
+    public void switchFragment (Fragment newFragment){
+        //hide Keyboard
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (getCurrentFocus() != null){
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().
+                replace(R.id.container, newFragment).
+                commit();
+
+    }
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -145,12 +154,7 @@ public class MainActivity extends Activity
             return rootView;
         }
 
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
+
     }
 
 }
