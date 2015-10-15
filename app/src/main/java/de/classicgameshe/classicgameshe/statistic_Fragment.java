@@ -21,3 +21,11 @@ public class statistic_Fragment extends Fragment {
         return rootview;
     }
 }
+
+
+
+git status                  -> anzeige alle veränderten files
+git add <pfad der datei>    -> für jedes file das commit werdn soll
+git commit -m "Kommentar"
+git push                    -> hochladen
+git pull                    -> herunterladen
