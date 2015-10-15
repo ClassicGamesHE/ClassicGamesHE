@@ -19,5 +19,7 @@ public class home_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.home_layout, container, false);
         return rootview;
+
+        //Testst
     }
 }
