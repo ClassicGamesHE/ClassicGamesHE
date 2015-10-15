@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.view.inputmethod.InputMethodManager;
 
+import de.classicgameshe.classicgameshe.LoginFragment;
+
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -31,7 +33,7 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        switchFragment(LoginFragment.newInstance());
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();

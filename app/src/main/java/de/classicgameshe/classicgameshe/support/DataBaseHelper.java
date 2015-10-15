@@ -5,7 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.lukashenze.login.adapter.LoginDataBaseAdapter;
+import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
+
 
 /**
  * Created by lukashenze on 11.10.15.
