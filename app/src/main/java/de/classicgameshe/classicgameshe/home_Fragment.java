@@ -20,6 +20,6 @@ public class home_Fragment extends Fragment {
         rootview = inflater.inflate(R.layout.home_layout, container, false);
         return rootview;
 
-        //Testst
+
     }
 }
