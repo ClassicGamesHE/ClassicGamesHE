@@ -1,4 +1,4 @@
-package de.classicgameshe.classicgameshe;
+package de.classicgameshe.classicgameshe.fm;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,11 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
-import de.classicgameshe.classicgameshe.fm.HomeFragment;
 import de.classicgameshe.classicgameshe.support.DialogHelper;
 
 
@@ -29,7 +29,7 @@ public class LoginFragment extends Fragment {
     private EditText repeatPasswordET;
     private Button loginBtn;
     private Button registerBtn;
-    private LoginDataBaseAdapter loginDataBaseAdapter;
+    public LoginDataBaseAdapter loginDataBaseAdapter;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -72,14 +72,24 @@ public class LoginFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         String[] test = {"USERNAME","PASSWORD"};
+        ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
+        arrayLists = loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "");
+        Log.v("DATENBANTABLE:", "this:" + arrayLists);
 
-        Log.v("DATENBANTABLE:", "this:" + loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", ""));
+
         userET = (EditText) rootView.findViewById(R.id.login_user_name_et);
         passwordET = (EditText) rootView.findViewById(R.id.login_password_et);
         repeatPasswordET = (EditText) rootView.findViewById(R.id.login_repeat_password_et);
 
         loginBtn = (Button) rootView.findViewById(R.id.login_login_btn);
         registerBtn = (Button) rootView.findViewById(R.id.login_register_btn);
+
+        if (arrayLists.size() == 0){
+            repeatPasswordET.setVisibility(View.VISIBLE);
+            loginBtn.setVisibility(View.INVISIBLE);
+            registerBtn.setText("REGISTRIEREN");
+        }
+
         return rootView;
     }
 
@@ -98,7 +108,17 @@ public class LoginFragment extends Fragment {
                 } else {
                     if (checkRepaetPwd() && checkRepeatInput(passwordET) && checkRepeatInput(repeatPasswordET)) {
                         //TODO: In der Datenbank neuen Account hinzufügen
-                        loginDataBaseAdapter.insertEntry(userET.getText().toString(), passwordET.getText().toString());
+                        String username = userET.getText().toString();
+                        String password = passwordET.getText().toString();
+                        loginDataBaseAdapter.insertEntry(username, password);
+                        //Als Benutzer einloggen
+                        try {
+                            if (loginDataBaseAdapter.loginUser(username, password)) {
+                                ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance());
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }

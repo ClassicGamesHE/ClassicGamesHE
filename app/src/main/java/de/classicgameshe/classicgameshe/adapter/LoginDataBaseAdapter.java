@@ -115,10 +115,10 @@ public class LoginDataBaseAdapter
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
         updatedValues.put("USERNAME", userName);
-        updatedValues.put("PASSWORD",password);
+        updatedValues.put("PASSWORD", password);
 
         String where="USERNAME = ?";
-        db.update("LOGIN",updatedValues, where, new String[]{userName});
+        db.update("LOGIN", updatedValues, where, new String[]{userName});
     }
 
     public boolean loginUser(String username, String password) throws SQLException
@@ -132,5 +132,11 @@ public class LoginDataBaseAdapter
             }
         }
         return false;
+    }
+
+    public Cursor getUserName (String username, String password){
+        Cursor mCursor = db.rawQuery("SELECT username, password FROM"+"LOGIN"+ "WHERE username=? AND pasword=?",new String[]{username,password});
+
+        return mCursor;
     }
 }
