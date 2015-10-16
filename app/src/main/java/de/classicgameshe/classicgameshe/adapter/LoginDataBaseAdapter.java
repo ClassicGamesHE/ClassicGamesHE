@@ -18,10 +18,13 @@ public class LoginDataBaseAdapter
 {
     static final String DATABASE_NAME = "login.db";
     static final int DATABASE_VERSION = 1;
+    private static final String TABLE_NAME = "LOGIN";
+    private static final String USER_NAME_COLUMN = "USERNAME";
+    private static final String PASSWORD_COLUMN = "PASSWORD";
     public static final int NAME_COLUMN = 1;
     // TODO: Create public field for each column in your table.
     // SQL Statement to create a new database.
-    public static final String DATABASE_CREATE = "create table "+"LOGIN"+
+    public static final String DATABASE_CREATE = "create table "+TABLE_NAME+
             "( " +"ID"+" integer primary key autoincrement,"+ "USERNAME  text,PASSWORD text); ";
     // Variable to hold the database instance
     public SQLiteDatabase db;
@@ -53,11 +56,11 @@ public class LoginDataBaseAdapter
     {
         ContentValues newValues = new ContentValues();
         // Assign values for each row.
-        newValues.put("USERNAME", userName);
-        newValues.put("PASSWORD", password);
+        newValues.put(USER_NAME_COLUMN, userName);
+        newValues.put(PASSWORD_COLUMN, password);
 
         // Insert the row into your table
-        db.insert("LOGIN", null, newValues);
+        db.insert(TABLE_NAME, null, newValues);
 //        Log.v("DATENBANK:","this:" + db.rawQuery());
         ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
     }
@@ -114,11 +117,11 @@ public class LoginDataBaseAdapter
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
-        updatedValues.put("USERNAME", userName);
-        updatedValues.put("PASSWORD", password);
+        updatedValues.put(USER_NAME_COLUMN, userName);
+        updatedValues.put(PASSWORD_COLUMN, password);
 
         String where="USERNAME = ?";
-        db.update("LOGIN", updatedValues, where, new String[]{userName});
+        db.update(TABLE_NAME, updatedValues, where, new String[]{userName});
     }
 
     public boolean loginUser(String username, String password) throws SQLException
@@ -128,6 +131,31 @@ public class LoginDataBaseAdapter
             if(mCursor.getCount() > 0)
             {
                 Log.v("du bist drinnen als:","");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Cursor getloginUserID (String username, String password) throws SQLException
+    {
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + "LOGIN" + " WHERE username=? AND password=?", new String[]{username,password});
+        if (mCursor != null) {
+            if(mCursor.getCount() > 0)
+            {
+                Log.v("du bist drinnen als:","");
+                return mCursor;
+            }
+        }
+        return mCursor;
+    }
+
+    public boolean checkIfUserExists (String username)
+    {
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE username=?", new String[]{username});
+        if (mCursor != null) {
+            if(mCursor.getCount() > 0)
+            {
                 return true;
             }
         }

@@ -16,13 +16,17 @@ import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
 
 
+
 public class HomeFragment extends Fragment {
     private TextView halloTV;
     private LoginDataBaseAdapter loginDataBaseAdapter;
 
-    public static HomeFragment newInstance() {
+    public final static String USERNAME = "username";
+
+    public static HomeFragment newInstance(String username) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
+        args.putString(USERNAME,username);
         fragment.setArguments(args);
         return fragment;
     }

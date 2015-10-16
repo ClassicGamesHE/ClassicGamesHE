@@ -19,8 +19,24 @@ public class DialogHelper {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
                                 }
-                            })
-                            .setMessage("Die beiden Passwörter müssen übereinstimmen");
+                            });
+
+        AlertDialog dialog = alertDialogBuilder.create();
+        return dialog;
+    }
+
+    public static AlertDialog createInfoDialogWithMessage(Context context, String title, String text){
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        alertDialogBuilder.setTitle(title)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setMessage(text);
 
         AlertDialog dialog = alertDialogBuilder.create();
         return dialog;

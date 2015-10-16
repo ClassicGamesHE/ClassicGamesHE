@@ -2,6 +2,8 @@ package de.classicgameshe.classicgameshe.fm;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -30,6 +32,7 @@ public class LoginFragment extends Fragment {
     private Button loginBtn;
     private Button registerBtn;
     public LoginDataBaseAdapter loginDataBaseAdapter;
+    private ArrayList<ArrayList<String>> arrayLists;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -72,7 +75,7 @@ public class LoginFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         String[] test = {"USERNAME","PASSWORD"};
-        ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
+        arrayLists = new ArrayList<>();
         arrayLists = loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "");
         Log.v("DATENBANTABLE:", "this:" + arrayLists);
 
@@ -110,14 +113,27 @@ public class LoginFragment extends Fragment {
                         //TODO: In der Datenbank neuen Account hinzufügen
                         String username = userET.getText().toString();
                         String password = passwordET.getText().toString();
-                        loginDataBaseAdapter.insertEntry(username, password);
-                        //Als Benutzer einloggen
-                        try {
-                            if (loginDataBaseAdapter.loginUser(username, password)) {
-                                ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance());
+//                        for (int i = 0; i<arrayLists.size();i++){
+//                            if (arrayLists.)
+//                        }
+
+                        if (loginDataBaseAdapter.checkIfUserExists(username)) {
+                            loginDataBaseAdapter.insertEntry(username, password);
+                            //Als Benutzer einloggen
+                            try {
+                                if (loginDataBaseAdapter.loginUser(username, password)) {
+                                    Cursor cursor = loginDataBaseAdapter.getloginUserID(username, password);
+                                    String test = cursor.toString();
+                                    Log.v("TESTDER DATENBANGK", "this:" + test);
+                                    ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
+                                }
+                            } catch (SQLException e) {
+                                e.printStackTrace();
                             }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                        } else {
+                            Dialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(), getString(R.string.dialog_title_fail),
+                                    getString(R.string.dialog_message_user_exists));
+                            dialog.show();
                         }
                     }
 
@@ -135,7 +151,7 @@ public class LoginFragment extends Fragment {
                     //Als Benutzer einloggen
                     try {
                         if (loginDataBaseAdapter.loginUser(username, password)) {
-                            ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance());
+                            ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -174,7 +190,8 @@ public class LoginFragment extends Fragment {
         if (passwordET.getText().toString().equals(repeatPasswordET.getText().toString())){
             return true;
         }else{
-            AlertDialog dialog = DialogHelper.createInfoDialog(getActivity(), "Fehler");
+            AlertDialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(), getString(R.string.dialog_title_fail),
+                    getString(R.string.dialog_message_wrong_password));
             dialog.show();
             return false;
         }
@@ -183,9 +200,8 @@ public class LoginFragment extends Fragment {
 
     private boolean checkRepeatInput (EditText editText) {
 
-//
         if (editText.getText().length() < 4) {
-            String errorString = "mind 4 Zeichen !";
+            String errorString = getString(R.string.login_fragment_min_password_lenght_text);
             editText.setError(errorString);
             return false;
         }else
@@ -194,3 +210,4 @@ public class LoginFragment extends Fragment {
         }
     }
 }
+
