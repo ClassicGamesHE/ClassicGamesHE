@@ -7,18 +7,41 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.sql.SQLException;
+
+import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
+
+
 public class tictactoe_Fragment extends Fragment implements View.OnClickListener {
+    //test statistik
+    int x;
+    int o;
+    public TicTacToeDataBaseAdapter ticTacToeDataBaseAdapter;
 
     boolean turn = true; // true = X & false = O
     int turn_count = 0;
     Button[] bArray = null;
     Button a1, a2, a3, b1, b2, b3, c1, c2, c3;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // get Instance  of Database Adapter
+        ticTacToeDataBaseAdapter=new TicTacToeDataBaseAdapter(getActivity());
+        try {
+            ticTacToeDataBaseAdapter=ticTacToeDataBaseAdapter.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     View rootview;
     @Nullable
@@ -114,20 +137,33 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
             there_is_a_winner = true;
 
         if (there_is_a_winner) {
-            if (!turn)
+            if (!turn) {
+                statisticCount("x");
                 message("X wins");
-            else
+            }else
+                statisticCount("o");
                 message("O wins");
             enableOrDisable(false);
         } else if (turn_count == 9)
             message("Draw!");
 
     }
+    private void statisticCount (String winner) {
+        Log.w("Winner", winner);
+        if (winner == "x")
+            x++;
+        else
+            o++;
+        ticTacToeDataBaseAdapter.updateEntry(winner);
+        Log.v("Spieler X", Integer.toString(x));
+        Log.v("Spieler O", Integer.toString(o));
+    }
 
     private void message(String text) {
         Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT)
                 .show();
     }
+
 
     private void enableOrDisable(boolean enable) {
         for (Button b : bArray) {
@@ -139,5 +175,11 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
                 b.setBackgroundColor(Color.LTGRAY);
             }
         }
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ticTacToeDataBaseAdapter.close();
+
     }
 }

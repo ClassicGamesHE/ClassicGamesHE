@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
+import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 
 
 /**
@@ -23,6 +24,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase _db)
     {
         _db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
+        //_db.execSQL(TicTacToeDataBaseAdapter.DATABASE_CREATE);
 
     }
     // Called when there is a database version mismatch meaning that the version
