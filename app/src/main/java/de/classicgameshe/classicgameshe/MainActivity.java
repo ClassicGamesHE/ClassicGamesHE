@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.view.inputmethod.InputMethodManager;
+
+import java.util.ArrayList;
 
 import de.classicgameshe.classicgameshe.fm.LoginFragment;
 
@@ -125,6 +130,29 @@ public class MainActivity extends Activity
                 replace(R.id.container, newFragment).
                 commit();
 
+    }
+
+    public void saveUserDate(String userID, String userName, String password) {
+        SharedPreferences sp =
+                getSharedPreferences("MyPrefs",
+                        Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("userID", userID);
+        editor.putString("username", userName);
+        editor.putString("password", password);
+        editor.commit();
+    }
+
+    public ArrayList<String> laodUserData (){
+        SharedPreferences sp =
+                getSharedPreferences("MyPrefs",
+                        Context.MODE_PRIVATE);
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(sp.getString("userID", ""));
+        arrayList.add(sp.getString("username",""));
+        arrayList.add(sp.getString("password",""));
+
+        return arrayList;
     }
     /**
      * A placeholder fragment containing a simple view.

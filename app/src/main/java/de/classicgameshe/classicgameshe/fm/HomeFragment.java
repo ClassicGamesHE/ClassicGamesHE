@@ -1,6 +1,8 @@
 package de.classicgameshe.classicgameshe.fm;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,9 +14,9 @@ import android.widget.TextView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
-
 
 
 public class HomeFragment extends Fragment {
@@ -65,5 +67,10 @@ public class HomeFragment extends Fragment {
         ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
         arrayLists = loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "");
         Log.v("DATENBANTABLE:", "this:" + arrayLists);
+
+        Log.v("HOME:", "this:" + ((MainActivity) getActivity()).laodUserData());
     }
+
+
+
 }

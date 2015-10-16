@@ -17,6 +17,11 @@
 
     <!--LoginFragment-->
     <string name="login_fragment_min_password_lenght_text">mind 4 Zeichen</string>
+    <string name="login_fragment_register_new_btn_text">NEU REGISTRIEREN</string>
+    <string name="login_fragment_register_btn_text">REGISTRIEREN</string>
+    <string name="login_fragment_login_btn_text">LOGIN</string>
+    <string name="login_fragment_error_no_user_name">Bitte geben Sie den UserName ein</string>
+    <string name="login_fragment_error_no_passowrd">Bitte geben Sie das Passwort ein</string>
 
     <!--DialogHelper-->
     <string name="dialog_button_ok">OK</string>

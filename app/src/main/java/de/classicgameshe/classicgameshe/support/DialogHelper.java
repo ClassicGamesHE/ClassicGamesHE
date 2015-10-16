@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import de.classicgameshe.classicgameshe.R;
+
 /**
  * Created by lukashenze on 24.09.15.
  */
@@ -14,7 +16,7 @@ public class DialogHelper {
                 context);
 
         alertDialogBuilder.setTitle(title)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            .setPositiveButton(context.getString(R.string.dialog_button_ok), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
@@ -30,7 +32,7 @@ public class DialogHelper {
                 context);
 
         alertDialogBuilder.setTitle(title)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(context.getString(R.string.dialog_button_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
