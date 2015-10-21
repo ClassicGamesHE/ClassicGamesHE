@@ -135,8 +135,9 @@ public class LoginFragment extends Fragment {
                 if (checkLoginData()) {
                     String username = userET.getText().toString();
                     String password = passwordET.getText().toString();
+                    Log.v("PASSWORD","HASH:"+ password.hashCode());
                     //Als Benutzer einloggen
-                   loginUser(username,password);
+                    loginUser(username,password);
                 }
             }
         });
@@ -158,7 +159,7 @@ public class LoginFragment extends Fragment {
                 //
 
                 //UserDaten speichern
-                ((MainActivity)getActivity()).saveUserDate(userIDString,username,password);
+                ((MainActivity)getActivity()).saveUserDate(userIDString);
                 ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
             }
         } catch (SQLException e) {

@@ -1,8 +1,6 @@
 package de.classicgameshe.classicgameshe.fm;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,7 +66,7 @@ public class HomeFragment extends Fragment {
         arrayLists = loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "");
         Log.v("DATENBANTABLE:", "this:" + arrayLists);
 
-        Log.v("HOME:", "this:" + ((MainActivity) getActivity()).laodUserData());
+        Log.v("HOME:", "this:" + ((MainActivity) getActivity()).laodeUserID());
     }
 
 

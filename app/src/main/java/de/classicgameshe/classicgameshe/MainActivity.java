@@ -25,6 +25,9 @@ import de.classicgameshe.classicgameshe.fm.LoginFragment;
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+
+    private static final String MY_PREF = "MyPrefs";
+    private static final String USER_ID_KEY = "userID";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -132,27 +135,20 @@ public class MainActivity extends Activity
 
     }
 
-    public void saveUserDate(String userID, String userName, String password) {
+    public void saveUserDate(String userID) {
         SharedPreferences sp =
-                getSharedPreferences("MyPrefs",
+                getSharedPreferences(MY_PREF,
                         Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("userID", userID);
-        editor.putString("username", userName);
-        editor.putString("password", password);
+        editor.putString(USER_ID_KEY, userID);
         editor.commit();
     }
 
-    public ArrayList<String> laodUserData (){
+    public String laodeUserID(){
         SharedPreferences sp =
-                getSharedPreferences("MyPrefs",
+                getSharedPreferences(MY_PREF,
                         Context.MODE_PRIVATE);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add(sp.getString("userID", ""));
-        arrayList.add(sp.getString("username",""));
-        arrayList.add(sp.getString("password",""));
-
-        return arrayList;
+        return sp.getString(USER_ID_KEY, "");
     }
     /**
      * A placeholder fragment containing a simple view.
