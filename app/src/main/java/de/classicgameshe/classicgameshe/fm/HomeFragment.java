@@ -12,9 +12,9 @@ import android.widget.TextView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
-
 
 
 public class HomeFragment extends Fragment {
@@ -65,5 +65,10 @@ public class HomeFragment extends Fragment {
         ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
         arrayLists = loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "");
         Log.v("DATENBANTABLE:", "this:" + arrayLists);
+
+        Log.v("HOME:", "this:" + ((MainActivity) getActivity()).laodeUserID());
     }
+
+
+
 }

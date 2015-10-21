@@ -1,10 +1,9 @@
 package de.classicgameshe.classicgameshe.fm;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.database.Cursor;
-import android.net.Uri;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.TextUtils;
@@ -74,9 +73,9 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-        String[] test = {"USERNAME","PASSWORD"};
+        String[] test = {LoginDataBaseAdapter.USER_ID,LoginDataBaseAdapter.USER_NAME_COLUMN,LoginDataBaseAdapter.PASSWORD_COLUMN};
         arrayLists = new ArrayList<>();
-        arrayLists = loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "");
+        arrayLists = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, "", null, "", "", "");
         Log.v("DATENBANTABLE:", "this:" + arrayLists);
 
 
@@ -90,7 +89,7 @@ public class LoginFragment extends Fragment {
         if (arrayLists.size() == 0){
             repeatPasswordET.setVisibility(View.VISIBLE);
             loginBtn.setVisibility(View.INVISIBLE);
-            registerBtn.setText("REGISTRIEREN");
+            registerBtn.setText(getString(R.string.login_fragment_register_btn_text));
         }
 
         return rootView;
@@ -103,33 +102,21 @@ public class LoginFragment extends Fragment {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (registerBtn.getText().equals("Neu Registrieren")) {
+                if (registerBtn.getText().equals(getString(R.string.login_fragment_register_new_btn_text))) {
                     repeatPasswordET.setVisibility(View.VISIBLE);
                     loginBtn.setVisibility(View.INVISIBLE);
-                    registerBtn.setText("REGISTRIEREN");
+                    registerBtn.setText(getString(R.string.login_fragment_register_btn_text));
 
                 } else {
                     if (checkRepaetPwd() && checkRepeatInput(passwordET) && checkRepeatInput(repeatPasswordET)) {
                         //TODO: In der Datenbank neuen Account hinzufügen
                         String username = userET.getText().toString();
                         String password = passwordET.getText().toString();
-//                        for (int i = 0; i<arrayLists.size();i++){
-//                            if (arrayLists.)
-//                        }
 
                         if (loginDataBaseAdapter.checkIfUserExists(username)) {
                             loginDataBaseAdapter.insertEntry(username, password);
                             //Als Benutzer einloggen
-                            try {
-                                if (loginDataBaseAdapter.loginUser(username, password)) {
-                                    Cursor cursor = loginDataBaseAdapter.getloginUserID(username, password);
-                                    String test = cursor.toString();
-                                    Log.v("TESTDER DATENBANGK", "this:" + test);
-                                    ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
-                                }
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
+                           loginUser(username,password);
                         } else {
                             Dialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(), getString(R.string.dialog_title_fail),
                                     getString(R.string.dialog_message_user_exists));
@@ -148,14 +135,9 @@ public class LoginFragment extends Fragment {
                 if (checkLoginData()) {
                     String username = userET.getText().toString();
                     String password = passwordET.getText().toString();
+                    Log.v("PASSWORD","HASH:"+ password.hashCode());
                     //Als Benutzer einloggen
-                    try {
-                        if (loginDataBaseAdapter.loginUser(username, password)) {
-                            ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    loginUser(username,password);
                 }
             }
         });
@@ -163,6 +145,27 @@ public class LoginFragment extends Fragment {
 
     }
 
+
+    private void loginUser (String username,String password){
+        try {
+            if (loginDataBaseAdapter.loginUser(username, password)) {
+
+                //DATEN des USERS bekommen
+                String[] test = {LoginDataBaseAdapter.USER_ID,LoginDataBaseAdapter.USER_NAME_COLUMN,LoginDataBaseAdapter.PASSWORD_COLUMN};
+                String whereClaus = "username=? AND password=?";
+                Log.v("GETUSERNAME", "THIS:" + loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, whereClaus, new String[]{username, password}, "", "", ""));
+                String userIDString = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, whereClaus, new String[]{username, password}, "", "", "").get(0).get(0);
+                Log.v("GETUSERNAME__ID", "THIS:" + userIDString);
+                //
+
+                //UserDaten speichern
+                ((MainActivity)getActivity()).saveUserDate(userIDString);
+                ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onStop() {
@@ -176,10 +179,10 @@ public class LoginFragment extends Fragment {
             return true;
         }else{
             if (TextUtils.isEmpty(userET.getText())) {
-                userET.setError("Bitte geben Sie den UserName ein");
+                userET.setError(getString(R.string.login_fragment_error_no_user_name));
             }
             if (TextUtils.isEmpty(passwordET.getText())){
-                passwordET.setError("Bitte geben Sie das Passwort ein");
+                passwordET.setError(getString(R.string.login_fragment_error_no_passowrd));
             }
             return false;
 

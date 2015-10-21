@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +24,9 @@ import de.classicgameshe.classicgameshe.fm.LoginFragment;
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+
+    private static final String MY_PREF = "MyPrefs";
+    private static final String USER_ID_KEY = "userID";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -126,6 +132,22 @@ public class MainActivity extends Activity
                 replace(R.id.container, newFragment).
                 commit();
 
+    }
+
+    public void saveUserDate(String userID) {
+        SharedPreferences sp =
+                getSharedPreferences(MY_PREF,
+                        Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(USER_ID_KEY, userID);
+        editor.commit();
+    }
+
+    public String laodeUserID(){
+        SharedPreferences sp =
+                getSharedPreferences(MY_PREF,
+                        Context.MODE_PRIVATE);
+        return sp.getString(USER_ID_KEY, "");
     }
     /**
      * A placeholder fragment containing a simple view.
