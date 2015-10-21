@@ -23,25 +23,12 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     //test statistik
     int x;
     int o;
-    public TicTacToeDataBaseAdapter ticTacToeDataBaseAdapter;
 
     boolean turn = true; // true = X & false = O
     int turn_count = 0;
     Button[] bArray = null;
     Button a1, a2, a3, b1, b2, b3, c1, c2, c3;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // get Instance  of Database Adapter
-        ticTacToeDataBaseAdapter=new TicTacToeDataBaseAdapter(getActivity());
-        try {
-            ticTacToeDataBaseAdapter=ticTacToeDataBaseAdapter.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     View rootview;
     @Nullable
@@ -154,7 +141,6 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
             x++;
         else
             o++;
-        ticTacToeDataBaseAdapter.updateEntry(winner);
         Log.v("Spieler X", Integer.toString(x));
         Log.v("Spieler O", Integer.toString(o));
     }
@@ -170,7 +156,7 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
             b.setText("");
             b.setClickable(enable);
             if (enable) {
-                b.setBackgroundColor(Color.parseColor("#33b5e5"));
+                b.setBackgroundColor(getResources().getColor(R.color.white));
             } else {
                 b.setBackgroundColor(Color.LTGRAY);
             }
@@ -179,7 +165,6 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     @Override
     public void onStop() {
         super.onStop();
-        ticTacToeDataBaseAdapter.close();
 
     }
 }

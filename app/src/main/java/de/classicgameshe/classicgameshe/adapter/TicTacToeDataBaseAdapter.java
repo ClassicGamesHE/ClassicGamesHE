@@ -3,6 +3,7 @@ package de.classicgameshe.classicgameshe.adapter;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -14,103 +15,97 @@ import de.classicgameshe.classicgameshe.support.DataBaseHelper;
 /**
  * Created by marinus on 16.10.15.
  */
-public class TicTacToeDataBaseAdapter
+
+public class TicTacToeDataBaseAdapter extends DataBaseHelper
 {
-    static final String DATABASE_NAME = "tictactoe.db";
-    static final int DATABASE_VERSION = 1;
-    public static final int NAME_COLUMN = 1;
-    // TODO: Create public field for each column in your table.
-    // SQL Statement to create a new database.
-    public static final String DATABASE_CREATE = "create table "+"TICTACTOE"+
-            "(ID integer primary key autoincrement, userID int, x  int,o int); ";
-    // Variable to hold the database instance
-    public SQLiteDatabase db;
-    // Context of the application using the database.
-    private final Context context;
-    // Database open/upgrade helper
-    private DataBaseHelper dbHelper;
-    public TicTacToeDataBaseAdapter(Context _context)
+    public static final String DATABASE_NAME = "statistic.db";
+    public static final String CONTACTS_TABLE_NAME = "tictactoe";
+    public static final String CONTACTS_COLUMN_ID = "id";
+    public static final String CONTACTS_COLUMN_userID = "userID";
+    public static final String CONTACTS_COLUMN_x = "x";
+    public static final String CONTACTS_COLUMN_o = "o";
+    public static final String CONTACTS_COLUMN_multiplayer = "multiplayer";
+
+    public TicTacToeDataBaseAdapter(Context context)
     {
-        context = _context;
-        dbHelper = new DataBaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-    public TicTacToeDataBaseAdapter open() throws SQLException
-    {
-        db = dbHelper.getWritableDatabase();
-        return this;
-    }
-    public void close()
-    {
-        db.close();
+        super(context, DATABASE_NAME, null, 1);
     }
 
-    public  SQLiteDatabase getDatabaseInstance()
-    {
-        return db;
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        // TODO Auto-generated method stub
+        db.execSQL(
+                "create table tictactoe " +
+                        "(id integer primary key, userID int,x int,o int, multiplayer int)"
+        );
     }
 
-    public void insertEntry()
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // TODO Auto-generated method stub
+        db.execSQL("DROP TABLE IF EXISTS tictactoe");
+        onCreate(db);
+    }
+
+    public boolean insertEntry  (int userID, int x, int o, int multiplayer)
     {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues newValues = new ContentValues();
-        // Assign values for each row.
-        newValues.put("userID", 1);
-        newValues.put("x", 0);
-        newValues.put("o", 0);
-
-        // Insert the row into your table
-        db.insert(DATABASE_NAME, null, newValues);
-//        Log.v("DATENBANK:","this:" + db.rawQuery());
-        ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
+        newValues.put("userID", userID);
+        newValues.put("x", x);
+        newValues.put("o", o);
+        newValues.put("multiplayer", multiplayer);
+        db.insert("tictactoe", null, newValues);
+        return true;
     }
 
-    public ArrayList<ArrayList<String>> selectRecordsFromDBList(String tableName, String[] tableColumns,String whereClase, String whereArgs[], String groupBy,String having, String orderBy)
+    public Cursor getData(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from tictactoe where id="+id+"", null );
+        return res;
+    }
+
+    public int numberOfRows(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int numRows = (int) DatabaseUtils.queryNumEntries(db, CONTACTS_TABLE_NAME);
+        return numRows;
+    }
+
+    public boolean updateEntry (Integer id, int userID, int x, int o, int multiplayer)
     {
-
-        ArrayList<ArrayList<String>> retList = new ArrayList<ArrayList<String>>();
-        ArrayList<String> list = new ArrayList<String>();
-        Cursor cursor = db.query(tableName, tableColumns, whereClase, whereArgs,
-                groupBy, having, orderBy);
-        if (cursor.moveToFirst())
-        {
-            do
-            {
-                list = new ArrayList<String>();
-                for(int i=0; i<cursor.getColumnCount(); i++)
-                {
-                    list.add( cursor.getString(i) );
-                }
-                retList.add(list);
-            } while (cursor.moveToNext());
-        }
-        if (cursor != null && !cursor.isClosed()) {
-            cursor.close();
-        }
-        return retList;
-
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues updateValues = new ContentValues();
+        updateValues.put("userID", userID);
+        updateValues.put("x", x);
+        updateValues.put("o", o);
+        updateValues.put("multiplayer", multiplayer);
+        db.update("contacts", updateValues, "id = ? ", new String[] { Integer.toString(id) } );
+        return true;
     }
 
 
-    public String getSinlgeEntry(String userName)
+    public Integer deleteEntry (Integer id)
     {
-        Cursor cursor=db.query("LOGIN", null, " USERNAME=?", new String[]{userName}, null, null, null);
-        if(cursor.getCount()<1) // UserName Not Exist
-        {
-            cursor.close();
-            return "NOT EXIST";
-        }
-        cursor.moveToFirst();
-        String password= cursor.getString(cursor.getColumnIndex("PASSWORD"));
-        cursor.close();
-        return password;
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("tictactoe",
+                "id = ? ",
+                new String[] { Integer.toString(id) });
     }
-    public void  updateEntry(String winner)
-    {
-        // Define the updated row content.
-        ContentValues updatedValues = new ContentValues();
-        // Assign values for each row.
-        updatedValues.put(winner, 1);
+    // neu^
 
-        db.update("TICTACTOE", updatedValues, "id" + "= 1", null);
+    public ArrayList<String> getAllEntrys()
+    {
+        ArrayList<String> array_list = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery("select * from tictactoe", null);
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex(CONTACTS_COLUMN_ID)));
+            res.moveToNext();
+        }
+        return array_list;
     }
 
 }

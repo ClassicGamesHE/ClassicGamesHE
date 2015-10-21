@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.view.inputmethod.InputMethodManager;
 
+import de.classicgameshe.classicgameshe.fm.HomeFragment;
 import de.classicgameshe.classicgameshe.fm.LoginFragment;
 
 
@@ -53,7 +54,7 @@ public class MainActivity extends Activity
 
         switch (position) {
             case 0:
-                objFragment = new home_Fragment();
+                objFragment = new HomeFragment();
                 break;
             case 1:
                 objFragment = new statistic_Fragment();
