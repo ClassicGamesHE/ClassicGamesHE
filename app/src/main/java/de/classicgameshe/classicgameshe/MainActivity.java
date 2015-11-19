@@ -8,7 +8,6 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +26,7 @@ public class MainActivity extends Activity
 
     private static final String MY_PREF = "MyPrefs";
     private static final String USER_ID_KEY = "userID";
+    private static final String USER_NAME_KEY = "userName";
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -115,6 +115,9 @@ public class MainActivity extends Activity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            saveUserDate("","");
+            switchFragment(LoginFragment.newInstance());
+            mNavigationDrawerFragment.closeNavigationDrawer();
             return true;
         }
 
@@ -134,12 +137,13 @@ public class MainActivity extends Activity
 
     }
 
-    public void saveUserDate(String userID) {
+    public void saveUserDate(String userID, String userName) {
         SharedPreferences sp =
                 getSharedPreferences(MY_PREF,
                         Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(USER_ID_KEY, userID);
+        editor.putString(USER_NAME_KEY, userName);
         editor.commit();
     }
 
@@ -148,6 +152,13 @@ public class MainActivity extends Activity
                 getSharedPreferences(MY_PREF,
                         Context.MODE_PRIVATE);
         return sp.getString(USER_ID_KEY, "");
+    }
+
+    public String loadUserName(){
+        SharedPreferences sp =
+                getSharedPreferences(MY_PREF,
+                        Context.MODE_PRIVATE);
+        return sp.getString(USER_NAME_KEY, "");
     }
     /**
      * A placeholder fragment containing a simple view.

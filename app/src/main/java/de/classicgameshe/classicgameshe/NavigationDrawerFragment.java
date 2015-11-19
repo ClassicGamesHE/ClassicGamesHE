@@ -22,6 +22,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
+import de.classicgameshe.classicgameshe.fm.LoginFragment;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -186,6 +189,10 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    public void closeNavigationDrawer (){
+        mDrawerLayout.closeDrawer(mFragmentContainerView);
     }
 
     private void selectItem(int position) {
