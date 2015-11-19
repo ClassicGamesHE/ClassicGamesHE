@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/home_bg"
     android:orientation="vertical">
     <!--<TextView android:layout_width="144dp" android:layout_height="63dp"-->
         <!--android:id="@+id/home_hallo_tv"-->
@@ -21,12 +22,16 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/home_button_margin_top"
         android:text="@string/title_section3"
+        android:background="@drawable/home_btn_bg"
+        android:textColor="@color/white"
         android:textSize="25sp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_button_height"
         android:id="@+id/imageButton2"
+        android:background="@drawable/home_btn_bg"
+        android:textColor="@color/white"
         android:layout_marginTop="@dimen/home_button_margin_top"/>
 
     <Button
@@ -36,6 +41,8 @@
         android:layout_gravity="center"
         android:text="@string/settings"
         android:layout_marginTop="@dimen/home_button_margin_top"
+        android:textColor="@color/white"
+        android:background="@drawable/home_btn_bg"
         android:textSize="25sp"/>
     </LinearLayout>
 

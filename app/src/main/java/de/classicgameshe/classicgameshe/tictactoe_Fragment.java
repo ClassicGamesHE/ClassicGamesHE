@@ -291,10 +291,16 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     private void statisticCount (String winner) {
         Log.w("Winner", winner);
         String userID = ((MainActivity) getActivity()).loadUserID();
+        Log.v("userID", "this:" + userID);
+
         if (ticTacToeDataBaseAdapter.checkIfStatisticExists(userID)){
            if (winner =="x") {
-               ticTacToeDataBaseAdapter.getData(userID);
-               ticTacToeDataBaseAdapter.updateEntry(userID, 3, 3, 5);
+//              ArrayList<String> arrayList = ticTacToeDataBaseAdapter.getData(userID);
+               int xWins = ticTacToeDataBaseAdapter.getXWins(userID);
+               Log.v("xWins", "this:" + xWins);
+
+
+               ticTacToeDataBaseAdapter.updateEntry(userID, xWins++, 3, 5);
                Log.v("update DATENBANTABLE:", "this:" + getall());
            }
             else {

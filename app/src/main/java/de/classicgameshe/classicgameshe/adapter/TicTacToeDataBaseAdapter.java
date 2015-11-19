@@ -69,9 +69,20 @@ public class TicTacToeDataBaseAdapter extends SQLiteOpenHelper
         ArrayList arrayList=new ArrayList();
         for(int i=0; i<res.getColumnCount(); i++)
         {
-            arrayList.add( res.getString(i) );
+            arrayList.add( String.valueOf(res.getString(i)) );
         }
         return arrayList;
+    }
+
+    public int getXWins (String userID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor mCursor =  db.rawQuery("select x from tictactoe where userID=" + userID + "", null);
+        if (mCursor.moveToFirst()){
+        int test = mCursor.getInt(mCursor.getCount()-1);
+        return test;}
+        else {
+            return 0;
+        }
     }
 
     public int numberOfRows(){
