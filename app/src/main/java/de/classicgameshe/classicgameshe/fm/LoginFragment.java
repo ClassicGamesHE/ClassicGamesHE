@@ -155,11 +155,12 @@ public class LoginFragment extends Fragment {
                 String whereClaus = "username=? AND password=?";
                 Log.v("GETUSERNAME", "THIS:" + loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, whereClaus, new String[]{username, password}, "", "", ""));
                 String userIDString = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, whereClaus, new String[]{username, password}, "", "", "").get(0).get(0);
+                String userNameString = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, whereClaus, new String[]{username, password}, "", "", "").get(0).get(1);
                 Log.v("GETUSERNAME__ID", "THIS:" + userIDString);
                 //
 
                 //UserDaten speichern
-                ((MainActivity)getActivity()).saveUserDate(userIDString);
+                ((MainActivity)getActivity()).saveUserDate(userIDString,userNameString);
                 ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
             }
         } catch (SQLException e) {

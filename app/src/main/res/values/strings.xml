@@ -4,13 +4,14 @@
     <string name="title_section1">Home</string>
     <string name="title_section2">Statistic</string>
     <string name="title_section3">Tic Tac Toe</string>
+    <string name="settings">Einstellungen</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Actions</string>
 
-    <string name="action_settings">Einstellungen</string>
+    <string name="action_settings">Log Out</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -31,5 +32,11 @@
     <string name="dialog_message_wrong_password">Die Passwöreter stimmen nicht überein</string>
     <string name="dialog_message_user_exists">Der User wurde bereits angelegt</string>
 
+    <string name="settings_fragment_change_passwort_text">Passwort ändern</string>
+    <string name="settings_fragment_old_password_text">Altes Passwort</string>
+    <string name="settings_fragment_new_password_text">Neues Passwort</string>
+    <string name="settings_fragment_repeat_new_password_text">Neues Passwort wiederholen</string>
+    <string name="settings_fragment_save_new_pwd_text">Speichern</string>
+    <string name="settings_fragment_back_text">Zurück</string>
 
 </resources>
