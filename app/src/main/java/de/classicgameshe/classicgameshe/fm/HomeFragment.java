@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -15,11 +16,14 @@ import java.util.ArrayList;
 import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
+import de.classicgameshe.classicgameshe.tictactoe_Fragment;
 
 
 public class HomeFragment extends Fragment {
     private TextView halloTV;
     private LoginDataBaseAdapter loginDataBaseAdapter;
+    private Button ticTacToeBtn;
+    private Button settingsBtn;
 
     public final static String USERNAME = "username";
 
@@ -51,7 +55,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        halloTV = (TextView) view.findViewById(R.id.home_hallo_tv);
+//        halloTV = (TextView) view.findViewById(R.id.home_hallo_tv);
+        ticTacToeBtn = (Button) view.findViewById(R.id.home_tic_tac_toe_btn);
+        settingsBtn = (Button) view.findViewById(R.id.home_settings_btn);
         loginDataBaseAdapter = new LoginDataBaseAdapter(getActivity());
         try {
             loginDataBaseAdapter = loginDataBaseAdapter.open();
@@ -67,6 +73,21 @@ public class HomeFragment extends Fragment {
         Log.v("DATENBANTABLE:", "this:" + arrayLists);
 
         Log.v("HOME:", "this:" + ((MainActivity) getActivity()).laodeUserID());
+
+
+        ticTacToeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).switchFragment(new tictactoe_Fragment());
+            }
+        });
+
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).switchFragment(SettingsFragment.newInstance());
+            }
+        });
     }
 
 

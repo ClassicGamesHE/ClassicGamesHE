@@ -23,25 +23,14 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     //test statistik
     int x;
     int o;
-    public TicTacToeDataBaseAdapter ticTacToeDataBaseAdapter;
+    private final int delayMiliSeconds = 100;
+    int delayCount = 1;
 
     boolean turn = true; // true = X & false = O
     int turn_count = 0;
     Button[] bArray = null;
     Button a1, a2, a3, b1, b2, b3, c1, c2, c3;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // get Instance  of Database Adapter
-        ticTacToeDataBaseAdapter=new TicTacToeDataBaseAdapter(getActivity());
-        try {
-            ticTacToeDataBaseAdapter=ticTacToeDataBaseAdapter.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     View rootview;
     @Nullable
@@ -63,6 +52,10 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
         for (Button b : bArray)
             b.setOnClickListener(this);
 
+
+
+
+
         Button bnew = (Button) rootview.findViewById(R.id.button1);
         bnew.setOnClickListener(new View.OnClickListener() {
 
@@ -70,13 +63,149 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
             public void onClick(View v) {
                 turn = true;
                 turn_count = 0;
-                enableOrDisable(true);
+
+                setTicTacToeNewGameAnimation();
+
+
             }
         });
 
         return rootview;
 
 
+    }
+
+    private void setBtnBackgroundColor (Button[] buttons,int colorInt){
+        for (Button b : buttons){
+            b.setBackgroundColor(getResources().getColor(colorInt));
+        }
+    }
+
+    private void setTicTacToeNewGameAnimation (){
+        final Button[] firstTwoBtns = new Button[]{a2,b1};
+        final Button[] threeBtns = new Button[]{c1,b2,a3};
+        final Button[] endTwoBtns = new Button[]{c2,b3};
+
+        Runnable runn1 = new Runnable() {
+            @Override
+            public void run() {
+                a1.setBackgroundColor(getResources().getColor(R.color.white));
+
+            }
+        };
+        Runnable runn2 = new Runnable() {
+            @Override
+            public void run() {
+                a1.setBackgroundColor(getResources().getColor(R.color.red));
+                setBtnBackgroundColor(firstTwoBtns, R.color.white);
+
+            }
+        };
+        Runnable run1 = new Runnable() {
+            @Override
+            public void run() {
+                a1.setBackgroundColor(getResources().getColor(R.color.red));
+                setBtnBackgroundColor(firstTwoBtns, R.color.blue);
+                setBtnBackgroundColor(threeBtns, R.color.white);
+
+            }
+        };
+
+        Runnable run2 = new Runnable() {
+            @Override
+            public void run() {
+                a1.setBackgroundColor(getResources().getColor(R.color.white));
+                setBtnBackgroundColor(firstTwoBtns, R.color.red);
+                setBtnBackgroundColor(threeBtns, R.color.blue);
+                setBtnBackgroundColor(endTwoBtns, R.color.white);
+            }
+        };
+
+        Runnable run3 = new Runnable() {
+            @Override
+            public void run() {
+                setBtnBackgroundColor(firstTwoBtns, R.color.white);
+                setBtnBackgroundColor(threeBtns, R.color.red);
+                setBtnBackgroundColor(endTwoBtns, R.color.blue);
+                c3.setBackgroundColor(getResources().getColor(R.color.white));
+
+
+            }
+        };
+
+        Runnable run4 = new Runnable() {
+            @Override
+            public void run() {
+                setBtnBackgroundColor(threeBtns, R.color.white);
+                setBtnBackgroundColor(endTwoBtns, R.color.red);
+                c3.setBackgroundColor(getResources().getColor(R.color.blue));
+            }
+        };
+
+        Runnable run5 = new Runnable() {
+            @Override
+            public void run() {
+                setBtnBackgroundColor(endTwoBtns, R.color.white);
+                c3.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+        };
+
+        Runnable run6 = new Runnable() {
+            @Override
+            public void run() {
+                c3.setBackgroundColor(getResources().getColor(R.color.white));
+
+            }
+        };
+
+        for (Button b : bArray) {
+            b.setText("");
+            b.setClickable(false);
+        }
+
+        a1.setBackgroundColor(getResources().getColor(R.color.blue));
+        getView().postDelayed(runn2, delayMiliSeconds * delayCount);
+        delayCount++;
+        getView().postDelayed(run1, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run2, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run3, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run4, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run5, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run6, delayMiliSeconds*delayCount);
+        delayCount++;
+
+        getView().postDelayed(run6, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run5, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run4, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run3, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run2, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(run1, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(runn2, delayMiliSeconds*delayCount);
+        delayCount++;
+        getView().postDelayed(runn1, delayMiliSeconds*delayCount);
+        delayCount++;
+
+        Runnable run = new Runnable() {
+            @Override
+            public void run() {
+                for (Button b : bArray) {
+                    b.setText("");
+                    b.setClickable(true);
+                }            }
+        };
+        getView().postDelayed(run,delayMiliSeconds*delayCount);
+        delayCount = 1;
     }
 
     @Override
@@ -89,14 +218,18 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
         if (turn) {
             // X's turn
             b.setText("X");
+            b.setBackgroundColor(getResources().getColor(R.color.blue));
+
 
         } else {
             // O's turn
             b.setText("O");
+            b.setBackgroundColor(getResources().getColor(R.color.red));
+
         }
         turn_count++;
         b.setClickable(false);
-        b.setBackgroundColor(Color.LTGRAY);
+//        b.setBackgroundColor(Color.LTGRAY);
         turn = !turn;
 
         checkForWinner();
@@ -140,10 +273,13 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
             if (!turn) {
                 statisticCount("x");
                 message("X wins");
-            }else
+            } else{
                 statisticCount("o");
-                message("O wins");
-            enableOrDisable(false);
+            message("O wins");
+                }
+            for (Button b :bArray){
+                b.setClickable(false);
+            }
         } else if (turn_count == 9)
             message("Draw!");
 
@@ -154,7 +290,6 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
             x++;
         else
             o++;
-        ticTacToeDataBaseAdapter.updateEntry(winner);
         Log.v("Spieler X", Integer.toString(x));
         Log.v("Spieler O", Integer.toString(o));
     }
@@ -170,7 +305,7 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
             b.setText("");
             b.setClickable(enable);
             if (enable) {
-                b.setBackgroundColor(Color.parseColor("#33b5e5"));
+                b.setBackgroundColor(getResources().getColor(R.color.white));
             } else {
                 b.setBackgroundColor(Color.LTGRAY);
             }
@@ -179,7 +314,6 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     @Override
     public void onStop() {
         super.onStop();
-        ticTacToeDataBaseAdapter.close();
 
     }
 }
