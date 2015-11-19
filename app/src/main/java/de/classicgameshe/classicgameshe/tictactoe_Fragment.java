@@ -14,13 +14,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 
-
 public class tictactoe_Fragment extends Fragment implements View.OnClickListener {
     //test statistik
+    private TicTacToeDataBaseAdapter ticTacToeDataBaseAdapter;
     int x;
     int o;
 
@@ -35,6 +35,10 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.tictactoe_layout, container, false);
+
+        // get Instance  of Database Adapter
+        ticTacToeDataBaseAdapter=new TicTacToeDataBaseAdapter(getActivity());
+
 
         a1 = (Button) rootview.findViewById(R.id.A1);
         b1 = (Button) rootview.findViewById(R.id.B1);
@@ -137,12 +141,32 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     }
     private void statisticCount (String winner) {
         Log.w("Winner", winner);
+        String userID = ((MainActivity) getActivity()).loadUserID();
+        if (ticTacToeDataBaseAdapter.checkIfStatisticExists(userID)){
+           if (winner =="x") {
+               ticTacToeDataBaseAdapter.getData(userID);
+               ticTacToeDataBaseAdapter.updateEntry(userID, 3, 3, 5);
+               Log.v("update DATENBANTABLE:", "this:" + getall());
+           }
+            else {
+
+
+           }
+
+        }
+        else {
+            if (ticTacToeDataBaseAdapter.insertEntry(userID, 0, 0, 0)) {
+                Log.v("insert DATENBANTABLE:", "this:" + getall());
+
+        }
+
+
+        }
         if (winner == "x")
+
             x++;
         else
             o++;
-        Log.v("Spieler X", Integer.toString(x));
-        Log.v("Spieler O", Integer.toString(o));
     }
 
     private void message(String text) {
@@ -166,5 +190,10 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     public void onStop() {
         super.onStop();
 
+    }
+    public ArrayList getall() {
+        String[] test = {TicTacToeDataBaseAdapter.COLUMN_userID,TicTacToeDataBaseAdapter.COLUMN_x,TicTacToeDataBaseAdapter.COLUMN_o, TicTacToeDataBaseAdapter.COLUMN_multiplayer};
+        ArrayList arrayLists = new ArrayList<>();
+        return  arrayLists = ticTacToeDataBaseAdapter.getAllEntrys(TicTacToeDataBaseAdapter.TABLE_NAME, test, "", null, "", "", "");
     }
 }

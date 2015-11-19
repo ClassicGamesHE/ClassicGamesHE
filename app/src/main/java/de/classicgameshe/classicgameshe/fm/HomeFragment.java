@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         arrayLists = loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "");
         Log.v("DATENBANTABLE:", "this:" + arrayLists);
 
-        Log.v("HOME:", "this:" + ((MainActivity) getActivity()).laodeUserID());
+        Log.v("HOME:", "this:" + ((MainActivity) getActivity()).loadUserID());
     }
 
 

@@ -143,7 +143,7 @@ public class MainActivity extends Activity
         editor.commit();
     }
 
-    public String laodeUserID(){
+    public String loadUserID(){
         SharedPreferences sp =
                 getSharedPreferences(MY_PREF,
                         Context.MODE_PRIVATE);
