@@ -39,4 +39,6 @@
     <string name="settings_fragment_save_new_pwd_text">Speichern</string>
     <string name="settings_fragment_back_text">Zurück</string>
 
+    <!--SQL TicTacToeDataBase-->
+    <string name="sql_string_get_data">select x,o, multiplayer from tictactoe where userID=</string>
 </resources>

@@ -4,6 +4,7 @@ package de.classicgameshe.classicgameshe;
  * Created by mastereder on 15.10.15.
  */
 import android.app.Fragment;
+import android.bluetooth.BluetoothAdapter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,7 +38,6 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.tictactoe_layout, container, false);
-
         // get Instance  of Database Adapter
         ticTacToeDataBaseAdapter=new TicTacToeDataBaseAdapter(getActivity());
 
@@ -55,11 +55,6 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
 
         for (Button b : bArray)
             b.setOnClickListener(this);
-
-
-
-
-
         Button bnew = (Button) rootview.findViewById(R.id.button1);
         bnew.setOnClickListener(new View.OnClickListener() {
 
@@ -67,16 +62,10 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
             public void onClick(View v) {
                 turn = true;
                 turn_count = 0;
-
                 setTicTacToeNewGameAnimation();
-
-
             }
         });
-
         return rootview;
-
-
     }
 
     private void setBtnBackgroundColor (Button[] buttons,int colorInt){
@@ -298,30 +287,35 @@ public class tictactoe_Fragment extends Fragment implements View.OnClickListener
 //              ArrayList<String> arrayList = ticTacToeDataBaseAdapter.getData(userID);
                int xWins = ticTacToeDataBaseAdapter.getXWins(userID);
                Log.v("xWins", "this:" + xWins);
+               Log.v("getData", "this:" + ticTacToeDataBaseAdapter.getData(userID));
 
 
-               ticTacToeDataBaseAdapter.updateEntry(userID, xWins++, 3, 5);
-               Log.v("update DATENBANTABLE:", "this:" + getall());
+               xWins = ++xWins;
+               ticTacToeDataBaseAdapter.updateXWins(userID, xWins);
+//               Log.v("update DATENBANTABLE:", "this:" + getall());
            }
             else {
 
+               int oWins = ticTacToeDataBaseAdapter.getOWins(userID);
+               Log.v("xWins", "this:" + oWins);
+
+               oWins = ++oWins;
+               ticTacToeDataBaseAdapter.updateOWins(userID, oWins);
+//               Log.v("insert DATENBANTABLE:", "this:" + getall());
 
            }
 
         }
         else {
-            if (ticTacToeDataBaseAdapter.insertEntry(userID, 0, 0, 0)) {
-                Log.v("insert DATENBANTABLE:", "this:" + getall());
+            if (winner == "x") {
+                ticTacToeDataBaseAdapter.insertEntry(userID, 1, 0, 0);
+            }else{
+                ticTacToeDataBaseAdapter.insertEntry(userID, 0, 1, 0);
+            }
+            Log.v("insert DATENBANTABLE:", "this:" + getall());
+
 
         }
-
-
-        }
-        if (winner == "x")
-
-            x++;
-        else
-            o++;
     }
 
     private void message(String text) {

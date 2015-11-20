@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 import de.classicgameshe.classicgameshe.support.PercentView;
 
 public class statistic_Fragment extends Fragment {
@@ -18,7 +19,13 @@ public class statistic_Fragment extends Fragment {
     View rootview;
     PercentView percentView;
 
-    @Nullable
+    public static statistic_Fragment newInstance() {
+        statistic_Fragment fragment = new statistic_Fragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.statistic_layout, container, false);
@@ -29,12 +36,16 @@ public class statistic_Fragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         percentView = (PercentView) view.findViewById(R.id.percentview);
-        int x = 5;
-        int o = 3;
-        float onePercent = 100 /(float)(x+o);
-        float setPercentage = onePercent*o;
-        Log.v("INT","X = "+x);
-        Log.v("INT","O = "+o);
+        String userID = ((MainActivity) getActivity()).loadUserID();
+        TicTacToeDataBaseAdapter ticTacToeDataBaseAdapter = new TicTacToeDataBaseAdapter(getActivity());
+
+        int xWins = ticTacToeDataBaseAdapter.getXWins(userID);
+        int oWins = ticTacToeDataBaseAdapter.getOWins(userID);
+
+        float onePercent = 100 /(float)(xWins+oWins);
+        float setPercentage = onePercent*oWins;
+        Log.v("INT","X = "+xWins);
+        Log.v("INT","O = "+oWins);
         Log.v("INT","onePercent = "+onePercent);
         Log.v("INT","setPercentage = "+setPercentage);
         // x = 5 o = 3
