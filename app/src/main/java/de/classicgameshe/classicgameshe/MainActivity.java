@@ -63,7 +63,7 @@ public class MainActivity extends Activity
                 objFragment = new HomeFragment();
                 break;
             case 1:
-                objFragment = new statistic_Fragment();
+                objFragment = new statistic_Fragment().newInstance();
                 break;
             case 2:
                  objFragment = new tictactoe_Fragment();
