@@ -1,0 +1,66 @@
+## Version 1 ##
+App:
+ - Login
+    - Fenster bei start
+    - Registier möglichkeit
+    - Login
+- Datenbank anbindung
+- Datenbank Adapter
+- LoginDatenbank
+- navigation drawer
+- verknüpfung der anderen Seiten
+- startpage layout
+- TicTacToe
+- oflline
+-
+Version 2
+App:
+Login
+Fenster bei start
+Registier möglichkeit
+Login
+Datenbank anbindung
+Logo für Loginpage
+Datenbank Adapter
+LoginDatenbank
+TicTacToe Datenbank
+navigation drawer
+verknüpfung der anderen Seiten
+verstecken beim Login
+Logout über navigaton drawer
+startpage layout
+Fotos für Spiele
+statistik layout
+Diagramm anzeigen
+TicTacToe
+oflline
+Statistik anbindung
+
+
+Version 3
+App:
+Login
+fenster bei start
+Registier möglichkeit
+Login
+Datenbank anbindung
+Logo für Loginpage
+Datenbank Adapter
+LoginDatenbank
+TicTacToe Datenbank
+navigation drawer
+verknüpfung der anderen Seiten
+verstecken beim Login
+Logout über navigaton drawer
+startpage layout
+Fotos für Spiele
+statistik layout
+Diagramm
+TicTacToe
+oflline
+Statistik anbindung
+Multiplayer (2 Geräte)
+Multiplayer Statistik anbindung
+Bugs beheben
+Design verfeinen
+Kleine Verbeserrungen
