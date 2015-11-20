@@ -38,6 +38,12 @@
     <string name="settings_fragment_repeat_new_password_text">Neues Passwort wiederholen</string>
     <string name="settings_fragment_save_new_pwd_text">Speichern</string>
     <string name="settings_fragment_back_text">Zurück</string>
+    <string name="settings_fragment_login_error">Der Benutzername oder das Passwort ist nicht korrekt!</string>
+
+    <!--StatisticFragment-->
+    <string name="statistic_x_winner_text">X hat %1$d Spiele gewonnen</string>
+    <string name="statistic_o_winner_text">O hat %1$d Spiele gewonnen</string>
+
 
     <!--SQL TicTacToeDataBase-->
     <string name="sql_string_get_data">select x,o, multiplayer from tictactoe where userID=</string>

@@ -29,11 +29,11 @@
                 android:layout_height="35dp"
                 android:background="@color/blue"/>
             <TextView
+                android:id="@+id/statistic_x_winner_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_gravity="center"
-                android:text="Der Spieler 'X' hat 5 spiele gewonnen"/>
+                android:layout_gravity="center"/>
 
         </LinearLayout>
         <LinearLayout
@@ -46,11 +46,11 @@
                 android:layout_height="35dp"
                 android:background="@color/red"/>
             <TextView
+                android:id="@+id/statistic_o_winner_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_gravity="center"
-                android:text="Der Spieler 'O' hat 3 spiele gewonnen"/>
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 

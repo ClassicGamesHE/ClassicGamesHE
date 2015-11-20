@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 import de.classicgameshe.classicgameshe.support.PercentView;
@@ -36,21 +37,22 @@ public class statistic_Fragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         percentView = (PercentView) view.findViewById(R.id.percentview);
+        TextView xWinnerTV = (TextView) view.findViewById(R.id.statistic_x_winner_tv);
+        TextView oWinnerTV = (TextView) view.findViewById(R.id.statistic_o_winner_tv);
+
         String userID = ((MainActivity) getActivity()).loadUserID();
         TicTacToeDataBaseAdapter ticTacToeDataBaseAdapter = new TicTacToeDataBaseAdapter(getActivity());
 
         int xWins = ticTacToeDataBaseAdapter.getXWins(userID);
         int oWins = ticTacToeDataBaseAdapter.getOWins(userID);
+        xWinnerTV.setText(String.format(getString(R.string.statistic_x_winner_text),
+                xWins));
+        oWinnerTV.setText(String.format(getString(R.string.statistic_o_winner_text),
+                oWins));
 
+        //Prozent berechnen
         float onePercent = 100 /(float)(xWins+oWins);
         float setPercentage = onePercent*oWins;
-        Log.v("INT","X = "+xWins);
-        Log.v("INT","O = "+oWins);
-        Log.v("INT","onePercent = "+onePercent);
-        Log.v("INT","setPercentage = "+setPercentage);
-        // x = 5 o = 3
-        // 100 / 7
-        // 14,29
         percentView.setPercentage(setPercentage);
     }
 }

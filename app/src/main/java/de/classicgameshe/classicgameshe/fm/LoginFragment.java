@@ -51,10 +51,6 @@ public class LoginFragment extends Fragment {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-
-
-
-
         // get Instance  of Database Adapter
         loginDataBaseAdapter=new LoginDataBaseAdapter(getActivity());
         try {
@@ -62,8 +58,6 @@ public class LoginFragment extends Fragment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
 
     }
 
@@ -137,7 +131,11 @@ public class LoginFragment extends Fragment {
                     String password = passwordET.getText().toString();
                     Log.v("PASSWORD","HASH:"+ password.hashCode());
                     //Als Benutzer einloggen
-                    loginUser(username,password);
+                    if(!(loginUser(username,password))){
+                        AlertDialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(),
+                                getString(R.string.dialog_title_fail), getString(R.string.settings_fragment_login_error));
+                        dialog.show();
+                    }
                 }
             }
         });
@@ -146,7 +144,7 @@ public class LoginFragment extends Fragment {
     }
 
 
-    private void loginUser (String username,String password){
+    private boolean loginUser (String username,String password){
         try {
             if (loginDataBaseAdapter.loginUser(username, password)) {
 
@@ -160,12 +158,14 @@ public class LoginFragment extends Fragment {
                 //
 
                 //UserDaten speichern
-                ((MainActivity)getActivity()).saveUserDate(userIDString,userNameString);
+                ((MainActivity)getActivity()).saveUserDate(userIDString, userNameString);
                 ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
