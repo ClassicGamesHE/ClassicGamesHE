@@ -65,16 +65,6 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
-//        LoginDataBaseAdapter loginDataBaseAdapter = new LoginDataBaseAdapter(getActivity());
-        String[] test = {"USERNAME", "PASSWORD"};
-//        halloTV.setText((LoginFragment.newInstance().loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "")).toString());
-        ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
-        arrayLists = loginDataBaseAdapter.selectRecordsFromDBList("LOGIN", test, "", null, "", "", "");
-        Log.v("DATENBANTABLE:", "this:" + arrayLists);
-
-        Log.v("HOME:", "this:" + ((MainActivity) getActivity()).loadUserID());
-
-
         ticTacToeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

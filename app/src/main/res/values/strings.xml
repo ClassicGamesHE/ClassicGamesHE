@@ -11,7 +11,7 @@
 
     <string name="action_example">Actions</string>
 
-    <string name="action_settings">Log Out</string>
+    <string name="action_logout">Log Out</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -32,6 +32,8 @@
     <string name="dialog_message_wrong_password">Die Passwöreter stimmen nicht überein</string>
     <string name="dialog_message_user_exists">Der User wurde bereits angelegt</string>
 
+
+    <string name="settings_fragment_text">Hallo %1$s momentan kannst du nur dein Passwort in Einstellungen ändern. </string>
     <string name="settings_fragment_change_passwort_text">Passwort ändern</string>
     <string name="settings_fragment_old_password_text">Altes Passwort</string>
     <string name="settings_fragment_new_password_text">Neues Passwort</string>
@@ -39,6 +41,9 @@
     <string name="settings_fragment_save_new_pwd_text">Speichern</string>
     <string name="settings_fragment_back_text">Zurück</string>
     <string name="settings_fragment_login_error">Der Benutzername oder das Passwort ist nicht korrekt!</string>
+
+    <string name="settings_fragment_old_pwd_wrong">Ihr altes Passwort wurd nicht korrekt eingegeben!</string>
+    <string name="settings_fragment_min_4_chars">Ihr neues Passwort muss mind. 4 Zeichen lang sein!</string>
 
     <!--StatisticFragment-->
     <string name="statistic_x_winner_text">X hat %1$d Spiele gewonnen</string>

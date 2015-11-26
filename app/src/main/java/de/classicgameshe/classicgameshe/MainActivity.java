@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import de.classicgameshe.classicgameshe.fm.HomeFragment;
 import de.classicgameshe.classicgameshe.fm.LoginFragment;
+import de.classicgameshe.classicgameshe.fm.SettingsFragment;
 
 
 public class MainActivity extends Activity
@@ -114,11 +115,16 @@ public class MainActivity extends Activity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            saveUserDate("","");
-            switchFragment(LoginFragment.newInstance());
-            mNavigationDrawerFragment.closeNavigationDrawer();
-            return true;
+        switch (id) {
+            case R.id.action_logout:
+                //TODO Ausloggen
+                saveUserDate("", "");
+                switchFragment(LoginFragment.newInstance());
+                mNavigationDrawerFragment.closeNavigationDrawer();
+                break;
+            case R.id.action_settings:
+                switchFragment(SettingsFragment.newInstance());
+                break;
         }
 
         return super.onOptionsItemSelected(item);

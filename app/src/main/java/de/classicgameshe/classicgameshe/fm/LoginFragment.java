@@ -30,7 +30,7 @@ public class LoginFragment extends Fragment {
     private EditText repeatPasswordET;
     private Button loginBtn;
     private Button registerBtn;
-    public LoginDataBaseAdapter loginDataBaseAdapter;
+    private LoginDataBaseAdapter loginDataBaseAdapter;
     private ArrayList<ArrayList<String>> arrayLists;
 
     public static LoginFragment newInstance() {
@@ -50,7 +50,6 @@ public class LoginFragment extends Fragment {
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-
         // get Instance  of Database Adapter
         loginDataBaseAdapter=new LoginDataBaseAdapter(getActivity());
         try {
@@ -67,10 +66,10 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-        String[] test = {LoginDataBaseAdapter.USER_ID,LoginDataBaseAdapter.USER_NAME_COLUMN,LoginDataBaseAdapter.PASSWORD_COLUMN};
-        arrayLists = new ArrayList<>();
-        arrayLists = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, "", null, "", "", "");
-        Log.v("DATENBANTABLE:", "this:" + arrayLists);
+//        String[] test = {LoginDataBaseAdapter.USER_ID,LoginDataBaseAdapter.USER_NAME_COLUMN,LoginDataBaseAdapter.PASSWORD_COLUMN};
+//        arrayLists = new ArrayList<>();
+//        arrayLists = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, "", null, "", "", "");
+//        Log.v("DATENBANTABLE:", "this:" + arrayLists);
 
 
         userET = (EditText) rootView.findViewById(R.id.login_user_name_et);
@@ -80,7 +79,7 @@ public class LoginFragment extends Fragment {
         loginBtn = (Button) rootView.findViewById(R.id.login_login_btn);
         registerBtn = (Button) rootView.findViewById(R.id.login_register_btn);
 
-        if (arrayLists.size() == 0){
+        if (loginDataBaseAdapter.isDbEmpty()){
             repeatPasswordET.setVisibility(View.VISIBLE);
             loginBtn.setVisibility(View.INVISIBLE);
             registerBtn.setText(getString(R.string.login_fragment_register_btn_text));
@@ -149,13 +148,8 @@ public class LoginFragment extends Fragment {
             if (loginDataBaseAdapter.loginUser(username, password)) {
 
                 //DATEN des USERS bekommen
-                String[] test = {LoginDataBaseAdapter.USER_ID,LoginDataBaseAdapter.USER_NAME_COLUMN,LoginDataBaseAdapter.PASSWORD_COLUMN};
-                String whereClaus = "username=? AND password=?";
-                Log.v("GETUSERNAME", "THIS:" + loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, whereClaus, new String[]{username, password}, "", "", ""));
-                String userIDString = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, whereClaus, new String[]{username, password}, "", "", "").get(0).get(0);
-                String userNameString = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, whereClaus, new String[]{username, password}, "", "", "").get(0).get(1);
-                Log.v("GETUSERNAME__ID", "THIS:" + userIDString);
-                //
+                String userIDString = String.valueOf(loginDataBaseAdapter.getloginUserID(username,password));
+                String userNameString = loginDataBaseAdapter.getUserName(username,password);
 
                 //UserDaten speichern
                 ((MainActivity)getActivity()).saveUserDate(userIDString, userNameString);

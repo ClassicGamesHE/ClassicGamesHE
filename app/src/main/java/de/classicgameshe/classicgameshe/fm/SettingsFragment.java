@@ -14,8 +14,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.sql.SQLException;
+
 import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
+import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
 import de.classicgameshe.classicgameshe.support.DialogHelper;
 
 
@@ -28,7 +31,8 @@ public class SettingsFragment extends Fragment {
     private EditText oldPwdET;
     private EditText newPwdET;
     private EditText repeatNewPwdEt;
-
+    private LoginDataBaseAdapter loginDataBaseAdapter;
+    private String userName;
 
     public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
@@ -68,7 +72,8 @@ public class SettingsFragment extends Fragment {
 
 
         changePwdLayout.setVisibility(View.GONE);
-        nameTV.setText(((MainActivity) getActivity()).loadUserName());
+        userName = ((MainActivity) getActivity()).loadUserName();
+        nameTV.setText(String.format(getString(R.string.settings_fragment_text),userName));
         changePwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,18 +92,44 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
                 if (checkOldPwd() && checkNewPwd() && checkRepaetPwd()){
                     //Passwort ändern
+
+
+                    if(loginDataBaseAdapter.updateEntry(userName,newPwdET.getText().toString())){
+                        //Pwd wurde geändert)
+                        ((MainActivity)getActivity()).switchFragment(HomeFragment.newInstance(userName));
+                    }else {
+                        //Es trat ein fehler auf
+                    }
                 }
             }
         });
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (loginDataBaseAdapter != null) {
+            loginDataBaseAdapter.close();
+        }
+
+    }
     private boolean checkOldPwd (){
-        //TODO Echtes Psswort bekommen
-        String oldPassword = "1234";
-        if (oldPwdET.getText().toString().equals(oldPassword)){
+        //Datenbank öffnen
+        loginDataBaseAdapter=new LoginDataBaseAdapter(getActivity());
+        try {
+            loginDataBaseAdapter=loginDataBaseAdapter.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String oldPassword = loginDataBaseAdapter.userPwd(userName);
+        if (String.valueOf(oldPwdET.getText().toString().hashCode()).equals(oldPassword)){
             return true;
         }else {
+            AlertDialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(),getString(R.string.dialog_title_fail),
+                    getString(R.string.settings_fragment_old_pwd_wrong));
+            dialog.show();
             return false;
         }
     }

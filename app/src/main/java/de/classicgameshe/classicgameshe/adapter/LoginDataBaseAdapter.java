@@ -9,6 +9,7 @@ import android.util.Log;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.support.DataBaseHelper;
 
 /**
@@ -58,7 +59,7 @@ public class LoginDataBaseAdapter
         ContentValues newValues = new ContentValues();
         // Assign values for each row.
         newValues.put(USER_NAME_COLUMN, userName);
-        newValues.put(PASSWORD_COLUMN, password);
+        newValues.put(PASSWORD_COLUMN, password.hashCode());
 
         // Insert the row into your table
         db.insert(TABLE_NAME, null, newValues);
@@ -66,30 +67,41 @@ public class LoginDataBaseAdapter
         ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
     }
 
-    public ArrayList<ArrayList<String>> selectRecordsFromDBList(String tableName, String[] tableColumns,String whereClase, String whereArgs[], String groupBy,String having, String orderBy)
-    {
+//    public ArrayList<ArrayList<String>> selectRecordsFromDBList(String tableName, String[] tableColumns,String whereClase, String whereArgs[], String groupBy,String having, String orderBy)
+//    {
+//
+//        ArrayList<ArrayList<String>> retList = new ArrayList<ArrayList<String>>();
+//        ArrayList<String> list = new ArrayList<String>();
+//        Cursor cursor = db.query(tableName, tableColumns, whereClase, whereArgs,
+//                groupBy, having, orderBy);
+//        if (cursor.moveToFirst())
+//        {
+//            do
+//            {
+//                list = new ArrayList<String>();
+//                for(int i=0; i<cursor.getColumnCount(); i++)
+//                {
+//                    list.add( cursor.getString(i) );
+//                }
+//                retList.add(list);
+//            } while (cursor.moveToNext());
+//        }
+//        if (cursor != null && !cursor.isClosed()) {
+//            cursor.close();
+//        }
+//        return retList;
+//
+//    }
 
-        ArrayList<ArrayList<String>> retList = new ArrayList<ArrayList<String>>();
-        ArrayList<String> list = new ArrayList<String>();
-        Cursor cursor = db.query(tableName, tableColumns, whereClase, whereArgs,
-                groupBy, having, orderBy);
-        if (cursor.moveToFirst())
-        {
-            do
-            {
-                list = new ArrayList<String>();
-                for(int i=0; i<cursor.getColumnCount(); i++)
-                {
-                    list.add( cursor.getString(i) );
-                }
-                retList.add(list);
-            } while (cursor.moveToNext());
-        }
-        if (cursor != null && !cursor.isClosed()) {
-            cursor.close();
-        }
-        return retList;
+    public boolean isDbEmpty (){
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, null);
+           cursor.moveToFirst();                       // Always one row returned.
+               if (cursor.getInt(0) == 0) {               // Zero count means empty table.
+                   return true;
 
+               } else {
+                   return false;
+               }
     }
 
     public int deleteEntry(String UserName)
@@ -100,34 +112,43 @@ public class LoginDataBaseAdapter
         // Toast.makeText(context, "Number fo Entry Deleted Successfully : "+numberOFEntriesDeleted, Toast.LENGTH_LONG).show();
         return numberOFEntriesDeleted;
     }
-    public String getSinlgeEntry(String userName)
-    {
-        Cursor cursor=db.query(TABLE_NAME, null, " USERNAME=?", new String[]{userName}, null, null, null);
-        if(cursor.getCount()<1) // UserName Not Exist
-        {
-            cursor.close();
-            return "NOT EXIST";
-        }
-        cursor.moveToFirst();
-        String password= cursor.getString(cursor.getColumnIndex(PASSWORD_COLUMN));
-        cursor.close();
-        return password;
-    }
-    public void  updateEntry(String userName,String password)
+
+    public boolean updateEntry(String userName,String password)
     {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
         updatedValues.put(USER_NAME_COLUMN, userName);
-        updatedValues.put(PASSWORD_COLUMN, password);
+        updatedValues.put(PASSWORD_COLUMN, password.hashCode());
 
         String where="USERNAME = ?";
-        db.update(TABLE_NAME, updatedValues, where, new String[]{userName});
+        if (String.valueOf(password.hashCode()).equals (userPwd(userName))){
+            return false;
+        }else{
+            db.update(TABLE_NAME, updatedValues, where, new String[]{userName});
+            return true;
+        }
+
+    }
+
+    public String userPwd (String userName){
+        Cursor mCursor = db.rawQuery("SELECT "+PASSWORD_COLUMN+" FROM "+TABLE_NAME+ " WHERE USERNAME=?",
+                new String[]{userName});
+        String pwd = null;
+        if (mCursor != null){
+            if (mCursor.moveToFirst()){
+                pwd = mCursor.getString(mCursor.getCount()-1);
+            }
+        }
+        Log.d(TABLE_NAME,"userPwd="+pwd);
+        return pwd;
     }
 
     public boolean loginUser(String username, String password) throws SQLException
     {
-        Cursor mCursor = db.rawQuery("SELECT * FROM " + "LOGIN" + " WHERE username=? AND password=?", new String[]{username,password});
+        Log.d(DATABASE_NAME,"loginUser username="+username+" pwd="+password);
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + "LOGIN" + " WHERE username=? AND password=?",
+                new String[]{username, String.valueOf(password.hashCode())});
         if (mCursor != null) {
             if(mCursor.getCount() > 0)
             {
@@ -137,16 +158,16 @@ public class LoginDataBaseAdapter
         return false;
     }
 
-    public Cursor getloginUserID (String username, String password) throws SQLException
-    {
-        Cursor mCursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE username=? AND password=?", new String[]{username,password});
+    public int getloginUserID (String username, String password) throws SQLException {
+        Cursor mCursor = db.rawQuery("SELECT "+USER_ID+" FROM " + TABLE_NAME + " WHERE username=? AND password=?", new String[]{username, String.valueOf(password.hashCode())});
+        int id = 0;
         if (mCursor != null) {
-            if(mCursor.getCount() > 0)
-            {
-                return mCursor;
+            if (mCursor.moveToFirst()) {
+                id = mCursor.getInt(mCursor.getCount() - 1);
             }
         }
-        return mCursor;
+        Log.d(TABLE_NAME,"userID="+id);
+    return id;
     }
 
     public boolean checkIfUserExists (String username)
@@ -161,18 +182,17 @@ public class LoginDataBaseAdapter
         return true;
     }
 
-    public  ArrayList<String> getUserName (String username, String password){
-        Cursor mCursor = db.rawQuery("SELECT * FROM "+TABLE_NAME+ " WHERE USERNAME=? AND PASSWORD=?",new String[]{username,password});
-        ArrayList<String> retList = new ArrayList<>();
-        retList.add(mCursor.getString(mCursor.getCount()-1));
-        String test = String.valueOf(mCursor);
-//        if (mCursor.getColumnCount() >= 0){
-//        for(int i=0; i<mCursor.getColumnCount(); i++)
-//        {
-//            retList.add( mCursor.getString(i) );
-//        }
-
-        return retList;
+    public  String getUserName (String username, String password){
+        Cursor mCursor = db.rawQuery("SELECT "+USER_NAME_COLUMN+" FROM "+TABLE_NAME+ " WHERE USERNAME=? AND PASSWORD=?",
+                new String[]{username, String.valueOf(password.hashCode())});
+        String userName = null;
+        if (mCursor != null){
+            if (mCursor.moveToFirst()){
+               userName = mCursor.getString(mCursor.getCount()-1);
+            }
+        }
+        Log.d(TABLE_NAME,"userName="+userName);
+        return userName;
     }
 
 }
