@@ -3,9 +3,13 @@ package de.classicgameshe.classicgameshe;
 import android.app.Activity;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import de.classicgameshe.classicgameshe.fm.HomeFragment;
 import de.classicgameshe.classicgameshe.fm.LoginFragment;
+import de.classicgameshe.classicgameshe.fm.TicTacToeMpFragment;
 
 
 public class MainActivity extends Activity
@@ -31,6 +36,8 @@ public class MainActivity extends Activity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
+    private BluetoothAdapter BTAdapter;
+    public static int REQUEST_BLUETOOTH = 1;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -44,10 +51,40 @@ public class MainActivity extends Activity
         switchFragment(LoginFragment.newInstance());
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+               getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
+        BTAdapter = BluetoothAdapter.getDefaultAdapter();
+        // Phone does not support Bluetooth so let the user know and exit.
+        if (BTAdapter == null) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Not compatible")
+                    .setMessage("Your phone does not support Bluetooth")
+                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            System.exit(0);
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+        if (!BTAdapter.isEnabled()) {
+            Intent enableBT = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBT, REQUEST_BLUETOOTH);
+        }
+
+
         // Set up the drawer.
+       // mNavigationDrawerFragment.setUp(
+         //       R.id.navigation_drawer,
+           //     (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    public void blockDrawer(){
+        mNavigationDrawerFragment.blockUp();
+    }
+
+    public void setUpNavigationDrawer(){
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
@@ -68,6 +105,9 @@ public class MainActivity extends Activity
             case 2:
                  objFragment = new tictactoe_Fragment();
                  break;
+            case 3:
+                objFragment = new TicTacToeMpFragment();
+                break;
         }
         switchFragment(objFragment);
     }
@@ -95,6 +135,7 @@ public class MainActivity extends Activity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
@@ -116,6 +157,7 @@ public class MainActivity extends Activity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             saveUserDate("","");
+            blockDrawer();
             switchFragment(LoginFragment.newInstance());
             mNavigationDrawerFragment.closeNavigationDrawer();
             return true;

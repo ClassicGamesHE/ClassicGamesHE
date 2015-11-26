@@ -20,7 +20,6 @@ import de.classicgameshe.classicgameshe.tictactoe_Fragment;
 
 
 public class HomeFragment extends Fragment {
-    private TextView halloTV;
     private LoginDataBaseAdapter loginDataBaseAdapter;
     private Button ticTacToeBtn;
     private Button settingsBtn;

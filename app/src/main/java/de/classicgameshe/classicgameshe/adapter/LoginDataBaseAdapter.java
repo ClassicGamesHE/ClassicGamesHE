@@ -63,7 +63,7 @@ public class LoginDataBaseAdapter
         // Insert the row into your table
         db.insert(TABLE_NAME, null, newValues);
 //        Log.v("DATENBANK:","this:" + db.rawQuery());
-        ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
+        ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).BthAdapter();
     }
 
     public ArrayList<ArrayList<String>> selectRecordsFromDBList(String tableName, String[] tableColumns,String whereClase, String whereArgs[], String groupBy,String having, String orderBy)
@@ -97,7 +97,7 @@ public class LoginDataBaseAdapter
         //String id=String.valueOf(ID);
         String where="USERNAME=?";
         int numberOFEntriesDeleted= db.delete(TABLE_NAME, where, new String[]{UserName});
-        // Toast.makeText(context, "Number fo Entry Deleted Successfully : "+numberOFEntriesDeleted, Toast.LENGTH_LONG).show();
+        // Toast.makeText(context, "Number fo Entry Deleted Successfully : "+numberOFEntriesDeleted, Toast.LENGTH_LONG).BthAdapter();
         return numberOFEntriesDeleted;
     }
     public String getSinlgeEntry(String userName)

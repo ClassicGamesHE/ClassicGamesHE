@@ -52,9 +52,6 @@ public class LoginFragment extends Fragment {
 //        setSupportActionBar(toolbar);
 
 
-
-
-
         // get Instance  of Database Adapter
         loginDataBaseAdapter=new LoginDataBaseAdapter(getActivity());
         try {
@@ -62,8 +59,6 @@ public class LoginFragment extends Fragment {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
 
     }
 
@@ -161,6 +156,7 @@ public class LoginFragment extends Fragment {
 
                 //UserDaten speichern
                 ((MainActivity)getActivity()).saveUserDate(userIDString,userNameString);
+                ((MainActivity)getActivity()).setUpNavigationDrawer();
                 ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
             }
         } catch (SQLException e) {
