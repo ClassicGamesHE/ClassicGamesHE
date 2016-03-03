@@ -1,10 +1,9 @@
-package de.classicgameshe.classicgameshe;
+package de.classicgameshe.classicgameshe.fm;
 
 /**
  * Created by mastereder on 15.10.15.
  */
 import android.app.Fragment;
-import android.bluetooth.BluetoothAdapter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,9 +16,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import de.classicgameshe.classicgameshe.MainActivity;
+import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 
-public class tictactoe_Fragment extends Fragment implements View.OnClickListener {
+public class TictactoeFragment extends Fragment implements View.OnClickListener {
     //test statistik
     private TicTacToeDataBaseAdapter ticTacToeDataBaseAdapter;
     int x;

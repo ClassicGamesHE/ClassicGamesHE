@@ -2,7 +2,6 @@ package de.classicgameshe.classicgameshe.fm;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,10 @@ import android.widget.TextView;
 
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
-import de.classicgameshe.classicgameshe.tictactoe_Fragment;
 
 
 public class HomeFragment extends Fragment {
@@ -68,7 +65,7 @@ public class HomeFragment extends Fragment {
         ticTacToeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).switchFragment(new tictactoe_Fragment());
+                ((MainActivity) getActivity()).switchFragment(new TictactoeFragment());
             }
         });
 
