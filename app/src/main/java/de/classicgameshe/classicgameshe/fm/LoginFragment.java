@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import de.classicgameshe.classicgameshe.MainActivity;
+import de.classicgameshe.classicgameshe.NavigationDrawerFragment;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
 import de.classicgameshe.classicgameshe.support.DialogHelper;
@@ -70,8 +74,6 @@ public class LoginFragment extends Fragment {
 //        arrayLists = new ArrayList<>();
 //        arrayLists = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, "", null, "", "", "");
 //        Log.v("DATENBANTABLE:", "this:" + arrayLists);
-
-
         userET = (EditText) rootView.findViewById(R.id.login_user_name_et);
         passwordET = (EditText) rootView.findViewById(R.id.login_password_et);
         repeatPasswordET = (EditText) rootView.findViewById(R.id.login_repeat_password_et);
@@ -102,7 +104,6 @@ public class LoginFragment extends Fragment {
 
                 } else {
                     if (checkRepaetPwd() && checkRepeatInput(passwordET) && checkRepeatInput(repeatPasswordET)) {
-                        //TODO: In der Datenbank neuen Account hinzufügen
                         String username = userET.getText().toString();
                         String password = passwordET.getText().toString();
 

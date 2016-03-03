@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -49,9 +50,9 @@ public class MainActivity extends Activity
         mTitle = getTitle();
 
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+//        mNavigationDrawerFragment.setUp(
+//                R.id.navigation_drawer,
+//                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -67,15 +68,16 @@ public class MainActivity extends Activity
                 objFragment = new statistic_Fragment().newInstance();
                 break;
             case 2:
-                 objFragment = new tictactoe_Fragment();
-                 break;
+                objFragment = new tictactoe_Fragment();
+                break;
         }
         switchFragment(objFragment);
     }
+
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle =  getString(R.string.title_section1);
+                mTitle = getString(R.string.title_section1);
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
@@ -130,10 +132,10 @@ public class MainActivity extends Activity
         return super.onOptionsItemSelected(item);
     }
 
-    public void switchFragment (Fragment newFragment){
+    public void switchFragment(Fragment newFragment) {
         //hide Keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        if (getCurrentFocus() != null){
+        if (getCurrentFocus() != null) {
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         FragmentManager fragmentManager = getFragmentManager();
@@ -153,19 +155,20 @@ public class MainActivity extends Activity
         editor.commit();
     }
 
-    public String loadUserID(){
+    public String loadUserID() {
         SharedPreferences sp =
                 getSharedPreferences(MY_PREF,
                         Context.MODE_PRIVATE);
         return sp.getString(USER_ID_KEY, "");
     }
 
-    public String loadUserName(){
+    public String loadUserName() {
         SharedPreferences sp =
                 getSharedPreferences(MY_PREF,
                         Context.MODE_PRIVATE);
         return sp.getString(USER_NAME_KEY, "");
     }
+
     /**
      * A placeholder fragment containing a simple view.
      */

@@ -191,6 +191,17 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+    public void setDrawerStates (boolean isEnabled) {
+        if (isEnabled){
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
+            mDrawerToggle.syncState();
+            getActivity().getActionBar().setHomeButtonEnabled(true);
+        }else {
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+    }
+
     public void closeNavigationDrawer (){
         mDrawerLayout.closeDrawer(mFragmentContainerView);
     }
