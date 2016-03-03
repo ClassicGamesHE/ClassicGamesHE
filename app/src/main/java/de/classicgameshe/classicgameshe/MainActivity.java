@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,12 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 import android.view.inputmethod.InputMethodManager;
 
 import de.classicgameshe.classicgameshe.fm.HomeFragment;
 import de.classicgameshe.classicgameshe.fm.LoginFragment;
 import de.classicgameshe.classicgameshe.fm.SettingsFragment;
+import de.classicgameshe.classicgameshe.fm.StatisticFragment;
+import de.classicgameshe.classicgameshe.fm.TictactoeFragment;
 
 
 public class MainActivity extends Activity
@@ -65,10 +65,10 @@ public class MainActivity extends Activity
                 objFragment = new HomeFragment();
                 break;
             case 1:
-                objFragment = new statistic_Fragment().newInstance();
+                objFragment = new StatisticFragment().newInstance();
                 break;
             case 2:
-                objFragment = new tictactoe_Fragment();
+                objFragment = new TictactoeFragment();
                 break;
         }
         switchFragment(objFragment);

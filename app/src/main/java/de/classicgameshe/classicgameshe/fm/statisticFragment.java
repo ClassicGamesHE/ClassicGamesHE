@@ -1,27 +1,27 @@
-package de.classicgameshe.classicgameshe;
+package de.classicgameshe.classicgameshe.fm;
 
 /**
  * Created by mastereder on 15.10.15.
  */
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import de.classicgameshe.classicgameshe.MainActivity;
+import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 import de.classicgameshe.classicgameshe.support.PercentView;
 
-public class statistic_Fragment extends Fragment {
+public class StatisticFragment extends Fragment {
 
     View rootview;
     PercentView percentView;
 
-    public static statistic_Fragment newInstance() {
-        statistic_Fragment fragment = new statistic_Fragment();
+    public static StatisticFragment newInstance() {
+        StatisticFragment fragment = new StatisticFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
