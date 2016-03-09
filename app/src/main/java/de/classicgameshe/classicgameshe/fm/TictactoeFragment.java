@@ -4,7 +4,6 @@ package de.classicgameshe.classicgameshe.fm;
  * Created by mastereder on 15.10.15.
  */
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -293,39 +292,39 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
 
     private void checkForWinner() {
 
-        boolean there_is_a_winner = false;
+        boolean getWinner = false;
 
-        // horizontal:
+        // horizontal
         if (a1.getText() == a2.getText() && a2.getText() == a3.getText()
                 && !a1.isClickable())
-            there_is_a_winner = true;
+            getWinner = true;
         else if (b1.getText() == b2.getText() && b2.getText() == b3.getText()
                 && !b1.isClickable())
-            there_is_a_winner = true;
+            getWinner = true;
         else if (c1.getText() == c2.getText() && c2.getText() == c3.getText()
                 && !c1.isClickable())
-            there_is_a_winner = true;
+            getWinner = true;
 
-            // vertical:
+            // vertical
         else if (a1.getText() == b1.getText() && b1.getText() == c1.getText()
                 && !a1.isClickable())
-            there_is_a_winner = true;
+            getWinner = true;
         else if (a2.getText() == b2.getText() && b2.getText() == c2.getText()
                 && !b2.isClickable())
-            there_is_a_winner = true;
+            getWinner = true;
         else if (a3.getText() == b3.getText() && b3.getText() == c3.getText()
                 && !c3.isClickable())
-            there_is_a_winner = true;
+            getWinner = true;
 
-            // diagonal:
+            // diagonal
         else if (a1.getText() == b2.getText() && b2.getText() == c3.getText()
                 && !a1.isClickable())
-            there_is_a_winner = true;
+            getWinner = true;
         else if (a3.getText() == b2.getText() && b2.getText() == c1.getText()
                 && !b2.isClickable())
-            there_is_a_winner = true;
+            getWinner = true;
 
-        if (there_is_a_winner) {
+        if (getWinner) {
             if (!turn) {
                 statisticCount("x");
                 message("X wins");

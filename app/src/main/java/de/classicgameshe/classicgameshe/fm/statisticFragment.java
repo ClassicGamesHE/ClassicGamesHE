@@ -15,13 +15,13 @@ import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 import de.classicgameshe.classicgameshe.support.PercentView;
 
-public class statisticFragment extends Fragment {
+public class StatisticFragment extends Fragment {
 
     View rootview;
     PercentView percentView;
 
-    public static statisticFragment newInstance() {
-        statisticFragment fragment = new statisticFragment();
+    public static StatisticFragment newInstance() {
+        StatisticFragment fragment = new StatisticFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -50,17 +50,9 @@ public class statisticFragment extends Fragment {
         oWinnerTV.setText(String.format(getString(R.string.statistic_o_winner_text),
                 oWins));
 
-        //Prozent berechnen
+        //calculate percent
         float onePercent = 100 /(float)(xWins+oWins);
         float setPercentage = onePercent*oWins;
         percentView.setPercentage(setPercentage);
     }
 }
-
-
-
-//git status                  -> anzeige alle veränderten files
-//git add <pfad der datei>    -> für jedes file das commit werdn soll
-//git commit -m "Kommentar"
-//git push                    -> hochladen
-//git pull                    -> herunterladen

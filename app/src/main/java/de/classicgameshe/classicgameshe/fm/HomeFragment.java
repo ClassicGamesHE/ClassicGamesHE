@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-
 
 import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
@@ -15,7 +13,6 @@ import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
 
 
 public class HomeFragment extends Fragment {
-    private TextView halloTV;
     private LoginDataBaseAdapter loginDataBaseAdapter;
     private Button ticTacToeBtn;
     private Button settingsBtn;
@@ -64,7 +61,7 @@ public class HomeFragment extends Fragment {
         statisticBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).switchFragment(statisticFragment.newInstance());
+                ((MainActivity)getActivity()).switchFragment(StatisticFragment.newInstance());
             }
         });
 

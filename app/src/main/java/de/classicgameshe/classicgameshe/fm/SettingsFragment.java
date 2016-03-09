@@ -1,15 +1,12 @@
 package de.classicgameshe.classicgameshe.fm;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,14 +88,14 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (checkOldPwd() && checkNewPwd() && checkRepaetPwd()){
-                    //Passwort ändern
+                    //Change password
 
 
                     if(loginDataBaseAdapter.updateEntry(userName,newPwdET.getText().toString())){
-                        //Pwd wurde geändert)
+                        //Password changed
                         ((MainActivity)getActivity()).switchFragment(HomeFragment.newInstance(userName));
                     }else {
-                        //Es trat ein fehler auf
+                        //Error
                     }
                 }
             }
@@ -115,7 +112,7 @@ public class SettingsFragment extends Fragment {
 
     }
     private boolean checkOldPwd (){
-        //Datenbank öffnen
+        //Open Datatbase
         loginDataBaseAdapter=new LoginDataBaseAdapter(getActivity());
         try {
             loginDataBaseAdapter=loginDataBaseAdapter.open();

@@ -7,9 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.support.DataBaseHelper;
 
 /**
@@ -23,8 +21,7 @@ public class LoginDataBaseAdapter
     public static final String USER_ID = "ID";
     public static final String USER_NAME_COLUMN = "USERNAME";
     public static final String PASSWORD_COLUMN = "PASSWORD";
-    public static final int NAME_COLUMN = 1;
-    // TODO: Create public field for each column in your table.
+
     // SQL Statement to create a new database.
     public static final String DATABASE_CREATE = "create table "+TABLE_NAME+
             "( " +USER_ID+" integer primary key autoincrement,"+ USER_NAME_COLUMN+"  text,"+ PASSWORD_COLUMN+ " text); ";
@@ -63,35 +60,9 @@ public class LoginDataBaseAdapter
 
         // Insert the row into your table
         db.insert(TABLE_NAME, null, newValues);
-//        Log.v("DATENBANK:","this:" + db.rawQuery());
-        ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
     }
 
-//    public ArrayList<ArrayList<String>> selectRecordsFromDBList(String tableName, String[] tableColumns,String whereClase, String whereArgs[], String groupBy,String having, String orderBy)
-//    {
-//
-//        ArrayList<ArrayList<String>> retList = new ArrayList<ArrayList<String>>();
-//        ArrayList<String> list = new ArrayList<String>();
-//        Cursor cursor = db.query(tableName, tableColumns, whereClase, whereArgs,
-//                groupBy, having, orderBy);
-//        if (cursor.moveToFirst())
-//        {
-//            do
-//            {
-//                list = new ArrayList<String>();
-//                for(int i=0; i<cursor.getColumnCount(); i++)
-//                {
-//                    list.add( cursor.getString(i) );
-//                }
-//                retList.add(list);
-//            } while (cursor.moveToNext());
-//        }
-//        if (cursor != null && !cursor.isClosed()) {
-//            cursor.close();
-//        }
-//        return retList;
-//
-//    }
+
 
     public boolean isDbEmpty (){
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, null);

@@ -2,16 +2,11 @@ package de.classicgameshe.classicgameshe.fm;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,7 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import de.classicgameshe.classicgameshe.MainActivity;
-import de.classicgameshe.classicgameshe.NavigationDrawerFragment;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
 import de.classicgameshe.classicgameshe.support.DialogHelper;
@@ -52,8 +46,6 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
         // get Instance  of Database Adapter
         loginDataBaseAdapter=new LoginDataBaseAdapter(getActivity());
         try {
@@ -70,10 +62,7 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-//        String[] test = {LoginDataBaseAdapter.USER_ID,LoginDataBaseAdapter.USER_NAME_COLUMN,LoginDataBaseAdapter.PASSWORD_COLUMN};
-//        arrayLists = new ArrayList<>();
-//        arrayLists = loginDataBaseAdapter.selectRecordsFromDBList(LoginDataBaseAdapter.TABLE_NAME, test, "", null, "", "", "");
-//        Log.v("DATENBANTABLE:", "this:" + arrayLists);
+
         userET = (EditText) rootView.findViewById(R.id.login_user_name_et);
         passwordET = (EditText) rootView.findViewById(R.id.login_password_et);
         repeatPasswordET = (EditText) rootView.findViewById(R.id.login_repeat_password_et);
@@ -109,7 +98,7 @@ public class LoginFragment extends Fragment {
 
                         if (loginDataBaseAdapter.checkIfUserExists(username)) {
                             loginDataBaseAdapter.insertEntry(username, password);
-                            //Als Benutzer einloggen
+                            //login as User
                            loginUser(username,password);
                         } else {
                             Dialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(), getString(R.string.dialog_title_fail),
@@ -148,11 +137,11 @@ public class LoginFragment extends Fragment {
         try {
             if (loginDataBaseAdapter.loginUser(username, password)) {
 
-                //DATEN des USERS bekommen
+                //get Data from user
                 String userIDString = String.valueOf(loginDataBaseAdapter.getloginUserID(username,password));
                 String userNameString = loginDataBaseAdapter.getUserName(username,password);
 
-                //UserDaten speichern
+                //save Data from user
                 ((MainActivity)getActivity()).saveUserDate(userIDString, userNameString);
                 ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(username));
                 return true;

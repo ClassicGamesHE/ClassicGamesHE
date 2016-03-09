@@ -1,20 +1,13 @@
 package de.classicgameshe.classicgameshe.adapter;
 
-import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-
-import de.classicgameshe.classicgameshe.MainActivity;
-import de.classicgameshe.classicgameshe.support.DataBaseHelper;
 
 /**
  * Created by marinus on 16.10.15.
@@ -23,7 +16,6 @@ import de.classicgameshe.classicgameshe.support.DataBaseHelper;
 public class TicTacToeDataBaseAdapter extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "statistic.db";
     public static final String TABLE_NAME = "tictactoe";
-    public static final String COLUMN_ID = "id";
     public static final String COLUMN_userID = "userID";
     public static final String COLUMN_x = "x";
     public static final String COLUMN_o = "o";
@@ -38,7 +30,6 @@ public class TicTacToeDataBaseAdapter extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
         db.execSQL(
                 "create table tictactoe " +
                         "(id integer primary key, userID String,x int,o int, multiplayer int)"
@@ -48,7 +39,6 @@ public class TicTacToeDataBaseAdapter extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
         db.execSQL("DROP TABLE IF EXISTS tictactoe");
         onCreate(db);
     }
