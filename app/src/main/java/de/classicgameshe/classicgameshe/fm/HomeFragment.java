@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-import java.sql.SQLException;
-
 import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.LoginDataBaseAdapter;
@@ -23,6 +21,7 @@ public class HomeFragment extends Fragment {
     private Button settingsBtn;
 
     public final static String USERNAME = "username";
+    private Button statisticBtn;
 
     public static HomeFragment newInstance(String username) {
         HomeFragment fragment = new HomeFragment();
@@ -52,20 +51,20 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        halloTV = (TextView) view.findViewById(R.id.home_hallo_tv);
         ticTacToeBtn = (Button) view.findViewById(R.id.home_tic_tac_toe_btn);
+        statisticBtn = (Button) view.findViewById(R.id.home_statistic_btn);
         settingsBtn = (Button) view.findViewById(R.id.home_settings_btn);
-        loginDataBaseAdapter = new LoginDataBaseAdapter(getActivity());
-        try {
-            loginDataBaseAdapter = loginDataBaseAdapter.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         ticTacToeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity) getActivity()).switchFragment(new TictactoeFragment());
+            }
+        });
+        statisticBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).switchFragment(statisticFragment.newInstance());
             }
         });
 

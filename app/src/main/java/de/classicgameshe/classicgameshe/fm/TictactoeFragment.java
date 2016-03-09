@@ -4,6 +4,7 @@ package de.classicgameshe.classicgameshe.fm;
  * Created by mastereder on 15.10.15.
  */
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,12 +39,25 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
     Button a1, a2, a3, b1, b2, b3, c1, c2, c3;
 
 
+    private RelativeLayout modeLayout;
+    private Button singlePlayerBtn;
+    private Button multiPlayerBtn;
+
+    private RelativeLayout bluetoothLayout;
+    private ImageButton bluetoothIBtn;
+    private TextView connectedDeviceTv;
+    private TextView connectedColorTv;
+
+    private LinearLayout mainLayout;
+
     View rootview;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.tictactoe_layout, container, false);
         // get Instance  of Database Adapter
+
+
         ticTacToeDataBaseAdapter=new TicTacToeDataBaseAdapter(getActivity());
 
 
@@ -67,6 +85,50 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
             }
         });
         return rootview;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        modeLayout = (RelativeLayout) view.findViewById(R.id.tic_tac_toe_mode_layout);
+        singlePlayerBtn = (Button) view.findViewById(R.id.singlepalyerBtn);
+        multiPlayerBtn = (Button) view.findViewById(R.id.multiplayerBtn);
+
+        bluetoothLayout = (RelativeLayout) view.findViewById(R.id.bluetooth_layout);
+        bluetoothIBtn = (ImageButton) view.findViewById(R.id.bluetooth_activate_iv);
+        connectedDeviceTv = (TextView) view.findViewById(R.id.bluetooth_connection_status_title_tv);
+        connectedColorTv = (TextView) view.findViewById(R.id.bluetooth_connection_status_color_tv);
+
+        mainLayout = (LinearLayout) view.findViewById(R.id.tic_tac_toe_main_layout);
+
+        View.OnClickListener modeOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == singlePlayerBtn){
+                    bluetoothLayout.setVisibility(View.GONE);
+
+                }else {
+                    bluetoothLayout.setVisibility(View.VISIBLE);
+
+                }
+                modeLayout.setVisibility(View.GONE);
+                mainLayout.setVisibility(View.VISIBLE);
+            }
+        };
+
+        singlePlayerBtn.setOnClickListener(modeOnClickListener);
+        multiPlayerBtn.setOnClickListener(modeOnClickListener);
+
+
+        bluetoothIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Bluetooth aktivieren !!!!!!!!!!!!!!!!!!
+            }
+        });
+
     }
 
     private void setBtnBackgroundColor (Button[] buttons,int colorInt){

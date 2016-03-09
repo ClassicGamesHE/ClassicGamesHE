@@ -15,13 +15,13 @@ import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 import de.classicgameshe.classicgameshe.support.PercentView;
 
-public class StatisticFragment extends Fragment {
+public class statisticFragment extends Fragment {
 
     View rootview;
     PercentView percentView;
 
-    public static StatisticFragment newInstance() {
-        StatisticFragment fragment = new StatisticFragment();
+    public static statisticFragment newInstance() {
+        statisticFragment fragment = new statisticFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

@@ -18,7 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import de.classicgameshe.classicgameshe.fm.HomeFragment;
 import de.classicgameshe.classicgameshe.fm.LoginFragment;
 import de.classicgameshe.classicgameshe.fm.SettingsFragment;
-import de.classicgameshe.classicgameshe.fm.StatisticFragment;
+import de.classicgameshe.classicgameshe.fm.statisticFragment;
 import de.classicgameshe.classicgameshe.fm.TictactoeFragment;
 
 
@@ -65,7 +65,7 @@ public class MainActivity extends Activity
                 objFragment = new HomeFragment();
                 break;
             case 1:
-                objFragment = new StatisticFragment().newInstance();
+                objFragment = new statisticFragment().newInstance();
                 break;
             case 2:
                 objFragment = new TictactoeFragment();

@@ -3,6 +3,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/tic_tac_toe_mode_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_button_height"
+                android:id="@+id/singlepalyerBtn"
+                android:background="@drawable/home_btn_bg"
+                android:textColor="@color/white"
+                android:text="Singleplayer"
+                android:textSize="25sp"
+                android:layout_marginTop="@dimen/home_button_margin_top"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_button_height"
+                android:id="@+id/multiplayerBtn"
+                android:layout_gravity="center"
+                android:text="Multiplayer"
+                android:layout_marginTop="@dimen/home_button_margin_top"
+                android:textColor="@color/white"
+                android:background="@drawable/home_btn_bg"
+                android:textSize="25sp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/tic_tac_toe_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+
     <RelativeLayout
         android:id="@+id/bluetooth_layout"
         android:layout_width="match_parent"
@@ -14,12 +59,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bluetooth-Connection"
-            android:textSize="24sp"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/bluetooth_connection_status_color_tv"
             android:layout_below="@id/bluetooth_title_tv"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@color/red"/>
@@ -31,16 +76,17 @@
             android:text="Nicht verbunden"
             android:layout_below="@id/bluetooth_title_tv"
             android:layout_toRightOf="@id/bluetooth_connection_status_color_tv"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/bluetooth_activate_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:src="@drawable/bluetooth_searching"
 
             />
 
@@ -177,5 +223,5 @@
         android:layout_toStartOf="@+id/B3"
         android:layout_marginTop="39dp" />
 </LinearLayout>
-
+</LinearLayout>
 </LinearLayout>
