@@ -101,7 +101,7 @@ public class LoginFragment extends Fragment {
                             //login as User
                            loginUser(username,password);
                         } else {
-                            Dialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(), getString(R.string.dialog_title_fail),
+                            Dialog dialog = DialogHelper.createInfoDialogWithLoginBtn(((MainActivity)getActivity()), getString(R.string.dialog_title_fail),
                                     getString(R.string.dialog_message_user_exists));
                             dialog.show();
                         }
