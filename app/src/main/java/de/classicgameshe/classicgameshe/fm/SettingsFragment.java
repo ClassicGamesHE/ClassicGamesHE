@@ -39,7 +39,6 @@ public class SettingsFragment extends Fragment {
     }
 
     public SettingsFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -51,7 +50,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
@@ -70,7 +68,7 @@ public class SettingsFragment extends Fragment {
 
         changePwdLayout.setVisibility(View.GONE);
         userName = ((MainActivity) getActivity()).loadUserName();
-        nameTV.setText(String.format(getString(R.string.settings_fragment_text),userName));
+        nameTV.setText(String.format(getString(R.string.settings_fragment_text), userName));
         changePwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,15 +85,14 @@ public class SettingsFragment extends Fragment {
         saveNewPwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkOldPwd() && checkNewPwd() && checkRepaetPwd()){
-                    //Change password
-
-
-                    if(loginDataBaseAdapter.updateEntry(userName,newPwdET.getText().toString())){
-                        //Password changed
-                        ((MainActivity)getActivity()).switchFragment(HomeFragment.newInstance(userName));
-                    }else {
-                        //Error
+                if (checkOldPwd() && checkNewPwd() && checkRepaetPwd()) {
+                    //Passwort wird geändert
+                    if (loginDataBaseAdapter.updateEntry(userName, newPwdET.getText().toString())) {
+                        ((MainActivity) getActivity()).switchFragment(HomeFragment.newInstance(userName));
+                    } else {
+                        AlertDialog dialog = DialogHelper.createInfoDialog(getActivity(),
+                                getString(R.string.dialog_message_can_not_change_password));
+                        dialog.show();
                     }
                 }
             }
@@ -111,42 +108,42 @@ public class SettingsFragment extends Fragment {
         }
 
     }
-    private boolean checkOldPwd (){
-        //Open Datatbase
-        loginDataBaseAdapter=new LoginDataBaseAdapter(getActivity());
+
+    private boolean checkOldPwd() {
+        //Datatbase öffnen
+        loginDataBaseAdapter = new LoginDataBaseAdapter(getActivity());
         try {
-            loginDataBaseAdapter=loginDataBaseAdapter.open();
+            loginDataBaseAdapter = loginDataBaseAdapter.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         String oldPassword = loginDataBaseAdapter.userPwd(userName);
-        if (String.valueOf(oldPwdET.getText().toString().hashCode()).equals(oldPassword)){
+        if (String.valueOf(oldPwdET.getText().toString().hashCode()).equals(oldPassword)) {
             return true;
-        }else {
-            AlertDialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(),getString(R.string.dialog_title_fail),
+        } else {
+            AlertDialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(), getString(R.string.dialog_title_fail),
                     getString(R.string.settings_fragment_old_pwd_wrong));
             dialog.show();
             return false;
         }
     }
 
-    private boolean checkNewPwd (){
+    private boolean checkNewPwd() {
         String newPasswordString = newPwdET.getText().toString();
         if (newPasswordString.length() < 4) {
             String errorString = getString(R.string.login_fragment_min_password_lenght_text);
             newPwdET.setError(errorString);
             return false;
-        }else
-        {
+        } else {
             return true;
         }
     }
 
-    private boolean checkRepaetPwd (){
-        if (newPwdET.getText().toString().equals(repeatNewPwdEt.getText().toString())){
+    private boolean checkRepaetPwd() {
+        if (newPwdET.getText().toString().equals(repeatNewPwdEt.getText().toString())) {
             return true;
-        }else{
+        } else {
             AlertDialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(), getString(R.string.dialog_title_fail),
                     getString(R.string.dialog_message_wrong_password));
             dialog.show();

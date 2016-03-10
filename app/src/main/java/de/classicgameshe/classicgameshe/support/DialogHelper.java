@@ -8,9 +8,6 @@ import de.classicgameshe.classicgameshe.MainActivity;
 import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.fm.LoginFragment;
 
-/**
- * Created by lukashenze on 24.09.15.
- */
 public class DialogHelper {
 
     public static AlertDialog createInfoDialog(Context context, String title){

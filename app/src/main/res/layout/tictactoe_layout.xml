@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,31 +13,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:background="@drawable/home_bg"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/home_button_height"
                 android:id="@+id/singlepalyerBtn"
-                android:background="@drawable/home_btn_bg"
-                android:textColor="@color/white"
-                android:text="Singleplayer"
-                android:textSize="25sp"
-                android:layout_marginTop="@dimen/home_button_margin_top"/>
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_button_height"
-                android:id="@+id/multiplayerBtn"
-                android:layout_gravity="center"
-                android:text="Multiplayer"
                 android:layout_marginTop="@dimen/home_button_margin_top"
-                android:textColor="@color/white"
                 android:background="@drawable/home_btn_bg"
-                android:textSize="25sp"/>
+                android:text="Singleplayer"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/multiplayerBtn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_button_height"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/home_button_margin_top"
+                android:background="@drawable/home_btn_bg"
+                android:text="Multiplayer"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -49,180 +50,178 @@
         android:visibility="invisible">
 
 
-    <RelativeLayout
-        android:id="@+id/bluetooth_layout"
-        android:layout_width="match_parent"
-        android:padding="16dp"
-        android:layout_height="100dp">
+        <RelativeLayout
+            android:id="@+id/bluetooth_layout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/bluetooth_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bluetooth-Connection"
-            android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/bluetooth_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bluetooth-Connection"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/bluetooth_connection_status_color_tv"
-            android:layout_below="@id/bluetooth_title_tv"
-            android:layout_marginTop="20dp"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@color/red"/>
+            <TextView
+                android:id="@+id/bluetooth_connection_status_color_tv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@id/bluetooth_title_tv"
+                android:layout_marginTop="20dp"
+                android:background="@color/red" />
 
-        <TextView
-            android:id="@+id/bluetooth_connection_status_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nicht verbunden"
-            android:layout_below="@id/bluetooth_title_tv"
-            android:layout_toRightOf="@id/bluetooth_connection_status_color_tv"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="5dp"
-            android:textSize="16sp"
-            />
+            <TextView
+                android:id="@+id/bluetooth_connection_status_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bluetooth_title_tv"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/bluetooth_connection_status_color_tv"
+                android:text="Nicht verbunden"
+                android:textSize="16sp" />
 
-        <ImageButton
-            android:id="@+id/bluetooth_activate_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/bluetooth_searching"
+            <ImageButton
+                android:id="@+id/bluetooth_activate_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/bluetooth_searching"
 
-            />
-
-
-    </RelativeLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+                />
 
 
+        </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#000000"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
 
-        <Button
-            android:id="@+id/A1"
-            android:layout_width="64dip"
-            android:layout_height="64dip"
-            android:background="@color/white"
-            android:minHeight="64dip"
-            android:textSize="32sp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/A2"
-            android:layout_width="64dip"
-            android:layout_height="64dip"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@color/white"
-            android:minHeight="64dip"
-            android:textSize="32sp" />
 
-        <Button
-            android:id="@+id/A3"
-            android:layout_width="64dip"
-            android:layout_height="64dip"
-            android:background="@color/white"
-            android:minHeight="64dip"
-            android:textSize="32sp" />
+                <Button
+                    android:id="@+id/A1"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:textSize="32sp" />
 
+                <Button
+                    android:id="@+id/A2"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:textSize="32sp" />
+
+                <Button
+                    android:id="@+id/A3"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:textSize="32sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/B1"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@+id/B2"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:textSize="32sp" />
+
+                <Button
+                    android:id="@+id/B2"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:text=""
+                    android:textSize="32sp" />
+
+
+                <Button
+                    android:id="@+id/B3"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:textSize="32sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/C1"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:textSize="32sp" />
+
+                <Button
+                    android:id="@+id/C2"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:textSize="32sp" />
+
+                <Button
+                    android:id="@+id/C3"
+                    android:layout_width="64dip"
+                    android:layout_height="64dip"
+                    android:background="@color/white"
+                    android:minHeight="64dip"
+                    android:textSize="32sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/C2"
+                android:layout_marginTop="39dp"
+                android:layout_toStartOf="@+id/B3"
+                android:text="New Game" />
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#000000"
-    android:orientation="horizontal">
-    <Button
-        android:id="@+id/B1"
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_toLeftOf="@+id/B2"
-        android:background="@color/white"
-        android:minHeight="64dip"
-        android:textSize="32sp" />
-
-    <Button
-        android:id="@+id/B2"
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@color/white"
-        android:minHeight="64dip"
-        android:text=""
-        android:textSize="32sp" />
-
-
-    <Button
-        android:id="@+id/B3"
-        android:layout_width="64dip"
-        android:layout_height="64dip"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@color/white"
-        android:minHeight="64dip"
-        android:textSize="32sp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#000000"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/C1"
-            android:layout_width="64dip"
-            android:layout_height="64dip"
-            android:background="@color/white"
-            android:minHeight="64dip"
-            android:textSize="32sp" />
-
-        <Button
-            android:id="@+id/C2"
-            android:layout_width="64dip"
-            android:layout_height="64dip"
-            android:background="@color/white"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:minHeight="64dip"
-            android:textSize="32sp" />
-
-        <Button
-            android:id="@+id/C3"
-            android:layout_width="64dip"
-            android:layout_height="64dip"
-            android:background="@color/white"
-            android:minHeight="64dip"
-            android:textSize="32sp" />
-
-    </LinearLayout>
-
-
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Game"
-        android:layout_below="@+id/C2"
-        android:layout_toStartOf="@+id/B3"
-        android:layout_marginTop="39dp" />
-</LinearLayout>
-</LinearLayout>
 </LinearLayout>

@@ -1,8 +1,5 @@
 package de.classicgameshe.classicgameshe.fm;
 
-/**
- * Created by mastereder on 15.10.15.
- */
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,7 +22,6 @@ import de.classicgameshe.classicgameshe.R;
 import de.classicgameshe.classicgameshe.adapter.TicTacToeDataBaseAdapter;
 
 public class TictactoeFragment extends Fragment implements View.OnClickListener {
-    //test statistik
     private TicTacToeDataBaseAdapter ticTacToeDataBaseAdapter;
     int x;
     int o;
@@ -50,16 +46,14 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
     private LinearLayout mainLayout;
 
     View rootview;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.tictactoe_layout, container, false);
-        // get Instance  of Database Adapter
+        ticTacToeDataBaseAdapter = new TicTacToeDataBaseAdapter(getActivity());
 
-
-        ticTacToeDataBaseAdapter=new TicTacToeDataBaseAdapter(getActivity());
-
-
+        //Buttons
         a1 = (Button) rootview.findViewById(R.id.A1);
         b1 = (Button) rootview.findViewById(R.id.B1);
         c1 = (Button) rootview.findViewById(R.id.C1);
@@ -69,10 +63,12 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
         a3 = (Button) rootview.findViewById(R.id.A3);
         b3 = (Button) rootview.findViewById(R.id.B3);
         c3 = (Button) rootview.findViewById(R.id.C3);
-        bArray = new Button[] { a1, a2, a3, b1, b2, b3, c1, c2, c3 };
+        bArray = new Button[]{a1, a2, a3, b1, b2, b3, c1, c2, c3};
 
-        for (Button b : bArray)
+        for (Button b : bArray) {
             b.setOnClickListener(this);
+        }
+
         Button bnew = (Button) rootview.findViewById(R.id.button1);
         bnew.setOnClickListener(new View.OnClickListener() {
 
@@ -90,7 +86,6 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         modeLayout = (RelativeLayout) view.findViewById(R.id.tic_tac_toe_mode_layout);
         singlePlayerBtn = (Button) view.findViewById(R.id.singlepalyerBtn);
         multiPlayerBtn = (Button) view.findViewById(R.id.multiplayerBtn);
@@ -105,12 +100,10 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
         View.OnClickListener modeOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v == singlePlayerBtn){
+                if (v == singlePlayerBtn) {
                     bluetoothLayout.setVisibility(View.GONE);
-
-                }else {
+                } else {
                     bluetoothLayout.setVisibility(View.VISIBLE);
-
                 }
                 modeLayout.setVisibility(View.GONE);
                 mainLayout.setVisibility(View.VISIBLE);
@@ -130,16 +123,16 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    private void setBtnBackgroundColor (Button[] buttons,int colorInt){
-        for (Button b : buttons){
+    private void setBtnBackgroundColor(Button[] buttons, int colorInt) {
+        for (Button b : buttons) {
             b.setBackgroundColor(getResources().getColor(colorInt));
         }
     }
 
-    private void setTicTacToeNewGameAnimation (){
-        final Button[] firstTwoBtns = new Button[]{a2,b1};
-        final Button[] threeBtns = new Button[]{c1,b2,a3};
-        final Button[] endTwoBtns = new Button[]{c2,b3};
+    private void setTicTacToeNewGameAnimation() {
+        final Button[] firstTwoBtns = new Button[]{a2, b1};
+        final Button[] threeBtns = new Button[]{c1, b2, a3};
+        final Button[] endTwoBtns = new Button[]{c2, b3};
 
         Runnable runn1 = new Runnable() {
             @Override
@@ -221,34 +214,34 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
         a1.setBackgroundColor(getResources().getColor(R.color.blue));
         getView().postDelayed(runn2, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run1, delayMiliSeconds*delayCount);
+        getView().postDelayed(run1, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run2, delayMiliSeconds*delayCount);
+        getView().postDelayed(run2, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run3, delayMiliSeconds*delayCount);
+        getView().postDelayed(run3, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run4, delayMiliSeconds*delayCount);
+        getView().postDelayed(run4, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run5, delayMiliSeconds*delayCount);
+        getView().postDelayed(run5, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run6, delayMiliSeconds*delayCount);
+        getView().postDelayed(run6, delayMiliSeconds * delayCount);
         delayCount++;
 
-        getView().postDelayed(run6, delayMiliSeconds*delayCount);
+        getView().postDelayed(run6, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run5, delayMiliSeconds*delayCount);
+        getView().postDelayed(run5, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run4, delayMiliSeconds*delayCount);
+        getView().postDelayed(run4, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run3, delayMiliSeconds*delayCount);
+        getView().postDelayed(run3, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run2, delayMiliSeconds*delayCount);
+        getView().postDelayed(run2, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(run1, delayMiliSeconds*delayCount);
+        getView().postDelayed(run1, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(runn2, delayMiliSeconds*delayCount);
+        getView().postDelayed(runn2, delayMiliSeconds * delayCount);
         delayCount++;
-        getView().postDelayed(runn1, delayMiliSeconds*delayCount);
+        getView().postDelayed(runn1, delayMiliSeconds * delayCount);
         delayCount++;
 
         Runnable run = new Runnable() {
@@ -257,9 +250,10 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
                 for (Button b : bArray) {
                     b.setText("");
                     b.setClickable(true);
-                }            }
+                }
+            }
         };
-        getView().postDelayed(run,delayMiliSeconds*delayCount);
+        getView().postDelayed(run, delayMiliSeconds * delayCount);
         delayCount = 1;
     }
 
@@ -284,7 +278,6 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
         }
         turn_count++;
         b.setClickable(false);
-//        b.setBackgroundColor(Color.LTGRAY);
         turn = !turn;
 
         checkForWinner();
@@ -328,55 +321,39 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
             if (!turn) {
                 statisticCount("x");
                 message("X wins");
-            } else{
+            } else {
                 statisticCount("o");
-            message("O wins");
-                }
-            for (Button b :bArray){
+                message("O wins");
+            }
+            for (Button b : bArray) {
                 b.setClickable(false);
             }
         } else if (turn_count == 9)
             message("Draw!");
 
     }
-    private void statisticCount (String winner) {
+
+    private void statisticCount(String winner) {
         Log.w("Winner", winner);
         String userID = ((MainActivity) getActivity()).loadUserID();
         Log.v("userID", "this:" + userID);
 
-        if (ticTacToeDataBaseAdapter.checkIfStatisticExists(userID)){
-           if (winner =="x") {
-//              ArrayList<String> arrayList = ticTacToeDataBaseAdapter.getData(userID);
-               int xWins = ticTacToeDataBaseAdapter.getXWins(userID);
-               Log.v("xWins", "this:" + xWins);
-               Log.v("getData", "this:" + ticTacToeDataBaseAdapter.getData(userID));
-
-
-               xWins = ++xWins;
-               ticTacToeDataBaseAdapter.updateXWins(userID, xWins);
-//               Log.v("update DATENBANTABLE:", "this:" + getall());
-           }
-            else {
-
-               int oWins = ticTacToeDataBaseAdapter.getOWins(userID);
-               Log.v("xWins", "this:" + oWins);
-
-               oWins = ++oWins;
-               ticTacToeDataBaseAdapter.updateOWins(userID, oWins);
-//               Log.v("insert DATENBANTABLE:", "this:" + getall());
-
-           }
-
-        }
-        else {
+        if (ticTacToeDataBaseAdapter.checkIfStatisticExists(userID)) {
+            if (winner == "x") {
+                int xWins = ticTacToeDataBaseAdapter.getXWins(userID);
+                xWins = ++xWins;
+                ticTacToeDataBaseAdapter.updateXWins(userID, xWins);
+            } else {
+                int oWins = ticTacToeDataBaseAdapter.getOWins(userID);
+                oWins = ++oWins;
+                ticTacToeDataBaseAdapter.updateOWins(userID, oWins);
+            }
+        } else {
             if (winner == "x") {
                 ticTacToeDataBaseAdapter.insertEntry(userID, 1, 0, 0);
-            }else{
+            } else {
                 ticTacToeDataBaseAdapter.insertEntry(userID, 0, 1, 0);
             }
-            Log.v("insert DATENBANTABLE:", "this:" + getall());
-
-
         }
     }
 
@@ -397,14 +374,11 @@ public class TictactoeFragment extends Fragment implements View.OnClickListener 
             }
         }
     }
-    @Override
-    public void onStop() {
-        super.onStop();
 
-    }
-    public ArrayList getall() {
-        String[] test = {TicTacToeDataBaseAdapter.COLUMN_userID,TicTacToeDataBaseAdapter.COLUMN_x,TicTacToeDataBaseAdapter.COLUMN_o, TicTacToeDataBaseAdapter.COLUMN_multiplayer};
-        ArrayList arrayLists = new ArrayList<>();
-        return  arrayLists = ticTacToeDataBaseAdapter.getAllEntrys(TicTacToeDataBaseAdapter.TABLE_NAME, test, "", null, "", "", "");
-    }
+    //Methode um die TicTacToe-Datenbank auszulesen
+//    public ArrayList getAll() {
+//        String[] test = {TicTacToeDataBaseAdapter.COLUMN_userID, TicTacToeDataBaseAdapter.COLUMN_x, TicTacToeDataBaseAdapter.COLUMN_o, TicTacToeDataBaseAdapter.COLUMN_multiplayer};
+//        ArrayList arrayLists = new ArrayList<>();
+//        return arrayLists = ticTacToeDataBaseAdapter.getAllEntrys(TicTacToeDataBaseAdapter.TABLE_NAME, test, "", null, "", "", "");
+//    }
 }

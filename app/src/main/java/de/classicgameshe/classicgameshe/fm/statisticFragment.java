@@ -1,8 +1,5 @@
 package de.classicgameshe.classicgameshe.fm;
 
-/**
- * Created by mastereder on 15.10.15.
- */
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -50,7 +47,7 @@ public class StatisticFragment extends Fragment {
         oWinnerTV.setText(String.format(getString(R.string.statistic_o_winner_text),
                 oWins));
 
-        //calculate percent
+        //Anteile berechnen
         float onePercent = 100 /(float)(xWins+oWins);
         float setPercentage = onePercent*oWins;
         percentView.setPercentage(setPercentage);

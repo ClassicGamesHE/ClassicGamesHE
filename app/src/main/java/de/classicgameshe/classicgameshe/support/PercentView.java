@@ -10,11 +10,6 @@ import android.widget.TextView;
 
 import de.classicgameshe.classicgameshe.R;
 
-/**
- * Created by lukashenze on 28.10.15.
- */
-
-//http://stackoverflow.com/questions/19731261/android-draw-circle-with-2-colors-pie-chart
 public class PercentView extends View {
 
     public PercentView (Context context) {
@@ -47,7 +42,7 @@ public class PercentView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //draw background circle anyway
+        // Kreis zeichnen
         int left = 0;
         int width = getWidth();
         int top = 0;

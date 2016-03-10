@@ -29,6 +29,7 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_message_wrong_password">Die Passwörter stimmen nicht überein!</string>
     <string name="dialog_message_user_exists">Der User wurde bereits angelegt!</string>
+    <string name="dialog_message_can_not_change_password">Das Passwort konnte leider nicht geändert werden</string>
 
 
     <string name="settings_fragment_text">Hallo %1$s momentan kannst du dein Passwort nur in den Einstellungen ändern. </string>

@@ -10,9 +10,6 @@ import java.sql.SQLException;
 
 import de.classicgameshe.classicgameshe.support.DataBaseHelper;
 
-/**
- * Created by lukashenze on 11.10.15.
- */
 public class LoginDataBaseAdapter
 {
     static final String DATABASE_NAME = "login.db";
@@ -22,14 +19,11 @@ public class LoginDataBaseAdapter
     public static final String USER_NAME_COLUMN = "USERNAME";
     public static final String PASSWORD_COLUMN = "PASSWORD";
 
-    // SQL Statement to create a new database.
+    // SQL Statement zum Erstellen der Datenbank
     public static final String DATABASE_CREATE = "create table "+TABLE_NAME+
             "( " +USER_ID+" integer primary key autoincrement,"+ USER_NAME_COLUMN+"  text,"+ PASSWORD_COLUMN+ " text); ";
-    // Variable to hold the database instance
     public SQLiteDatabase db;
-    // Context of the application using the database.
     private final Context context;
-    // Database open/upgrade helper
     private DataBaseHelper dbHelper;
     public LoginDataBaseAdapter(Context _context)
     {
@@ -54,11 +48,10 @@ public class LoginDataBaseAdapter
     public void insertEntry(String userName,String password)
     {
         ContentValues newValues = new ContentValues();
-        // Assign values for each row.
         newValues.put(USER_NAME_COLUMN, userName);
         newValues.put(PASSWORD_COLUMN, password.hashCode());
 
-        // Insert the row into your table
+        // Datensatz in die Tablle einfügen
         db.insert(TABLE_NAME, null, newValues);
     }
 
@@ -66,8 +59,8 @@ public class LoginDataBaseAdapter
 
     public boolean isDbEmpty (){
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME, null);
-           cursor.moveToFirst();                       // Always one row returned.
-               if (cursor.getInt(0) == 0) {               // Zero count means empty table.
+           cursor.moveToFirst();
+               if (cursor.getInt(0) == 0) {
                    return true;
 
                } else {
@@ -77,18 +70,15 @@ public class LoginDataBaseAdapter
 
     public int deleteEntry(String UserName)
     {
-        //String id=String.valueOf(ID);
         String where="USERNAME=?";
         int numberOFEntriesDeleted= db.delete(TABLE_NAME, where, new String[]{UserName});
-        // Toast.makeText(context, "Number fo Entry Deleted Successfully : "+numberOFEntriesDeleted, Toast.LENGTH_LONG).show();
         return numberOFEntriesDeleted;
     }
 
     public boolean updateEntry(String userName,String password)
     {
-        // Define the updated row content.
+        //Die zu verändernden Felder definieren
         ContentValues updatedValues = new ContentValues();
-        // Assign values for each row.
         updatedValues.put(USER_NAME_COLUMN, userName);
         updatedValues.put(PASSWORD_COLUMN, password.hashCode());
 
