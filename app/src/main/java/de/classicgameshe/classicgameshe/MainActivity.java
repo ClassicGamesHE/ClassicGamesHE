@@ -14,8 +14,8 @@ import android.view.inputmethod.InputMethodManager;
 import de.classicgameshe.classicgameshe.fm.HomeFragment;
 import de.classicgameshe.classicgameshe.fm.LoginFragment;
 import de.classicgameshe.classicgameshe.fm.SettingsFragment;
-import de.classicgameshe.classicgameshe.fm.TictactoeFragment;
 import de.classicgameshe.classicgameshe.fm.StatisticFragment;
+import de.classicgameshe.classicgameshe.fm.TictactoeFragment;
 
 
 public class MainActivity extends Activity
@@ -45,10 +45,6 @@ public class MainActivity extends Activity
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        // Set up the drawer.
-//        mNavigationDrawerFragment.setUp(
-//                R.id.navigation_drawer,
-//                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
