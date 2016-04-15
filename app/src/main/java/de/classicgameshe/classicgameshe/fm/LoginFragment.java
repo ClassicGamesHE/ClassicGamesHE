@@ -29,7 +29,6 @@ public class LoginFragment extends Fragment {
     private Button loginBtn;
     private Button registerBtn;
     private LoginDataBaseAdapter loginDataBaseAdapter;
-    private ArrayList<ArrayList<String>> arrayLists;
 
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
@@ -39,14 +38,11 @@ public class LoginFragment extends Fragment {
     }
 
     public LoginFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // get Instance  of Database Adapter
         loginDataBaseAdapter=new LoginDataBaseAdapter(getActivity());
         try {
             loginDataBaseAdapter=loginDataBaseAdapter.open();
@@ -59,10 +55,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
-
         userET = (EditText) rootView.findViewById(R.id.login_user_name_et);
         passwordET = (EditText) rootView.findViewById(R.id.login_password_et);
         repeatPasswordET = (EditText) rootView.findViewById(R.id.login_repeat_password_et);
@@ -101,7 +94,7 @@ public class LoginFragment extends Fragment {
                             //login as User
                            loginUser(username,password);
                         } else {
-                            Dialog dialog = DialogHelper.createInfoDialogWithMessage(getActivity(), getString(R.string.dialog_title_fail),
+                            Dialog dialog = DialogHelper.createInfoDialogWithLoginBtn(((MainActivity)getActivity()), getString(R.string.dialog_title_fail),
                                     getString(R.string.dialog_message_user_exists));
                             dialog.show();
                         }

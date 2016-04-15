@@ -12,13 +12,14 @@
     <string name="action_example">Actions</string>
 
     <string name="action_logout">Log Out</string>
+    <string name="back_to_login">Zurück zum Login</string>
 
     <!--LoginFragment-->
     <string name="login_fragment_min_password_lenght_text">mind 4 Zeichen</string>
     <string name="login_fragment_register_new_btn_text">NEU REGISTRIEREN</string>
     <string name="login_fragment_register_btn_text">REGISTRIEREN</string>
     <string name="login_fragment_login_btn_text">LOGIN</string>
-    <string name="login_fragment_error_no_user_name">Bitte geben Sie den UserName ein.</string>
+    <string name="login_fragment_error_no_user_name">Bitte geben Sie den Benutzername ein.</string>
     <string name="login_fragment_error_no_passowrd">Bitte geben Sie das Passwort ein.</string>
 
     <!--  DeviceListActivity -->
@@ -41,6 +42,7 @@
     <string name="dialog_title_error">Error</string>
     <string name="dialog_message_wrong_password">Die Passwörter stimmen nicht überein!</string>
     <string name="dialog_message_user_exists">Der User wurde bereits angelegt!</string>
+    <string name="dialog_message_can_not_change_password">Das Passwort konnte leider nicht geändert werden</string>
 
 
     <string name="settings_fragment_text">Hallo %1$s momentan kannst du dein Passwort nur in den Einstellungen ändern. </string>

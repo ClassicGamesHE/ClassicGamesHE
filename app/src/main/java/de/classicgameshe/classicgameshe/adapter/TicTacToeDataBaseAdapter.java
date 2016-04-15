@@ -9,9 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-/**
- * Created by marinus on 16.10.15.
- */
 
 public class TicTacToeDataBaseAdapter extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "statistic.db";

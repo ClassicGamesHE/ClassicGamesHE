@@ -9,11 +9,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_gravity="center"
-                android:layout_width="300dp"
-                android:layout_height="300dp" />
+            android:orientation="vertical"
+            android:paddingTop="30dp">
 
             <EditText
                 android:id="@+id/login_user_name_et"
